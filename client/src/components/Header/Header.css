@@ -11,7 +11,7 @@
     box-sizing: border-box;
     width: 80px;
     padding: 5px;
-    font-size: 12px;
+    font-size: 14px;
     background-color: var(--title-color);
     color: lightgray;
     border: 2px solid lightgray;
