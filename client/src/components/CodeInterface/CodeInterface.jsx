@@ -103,7 +103,7 @@ const CodeInterface = () => {
         const newEditorHeight = editorHeight + dy;
         const containerHeight = rightPanel.offsetHeight;
       
-        if (newEditorHeight > 200 && newEditorHeight < containerHeight - 150) {
+        if (newEditorHeight > 200 && newEditorHeight < containerHeight - 300) {
           editorPanel.style.height = `${newEditorHeight}px`;
           consolePanel.style.flex = `1 1 auto`;
         }

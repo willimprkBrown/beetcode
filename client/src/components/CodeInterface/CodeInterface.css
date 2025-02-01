@@ -1,185 +1,190 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  /* Keep full vertical space but remove margin so it sits higher */
+  height: 90vh;
+  /* Constrain to some max width; pinned to the right. */
+  max-width: 1500px;
+  width: 100%;
+
+  overflow: hidden;
   
-  .container {
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-    background-color: #1e1e1e;
-    color: white;
-    border-radius: 20px;
-    margin-left: 15px;
-    margin-right: 15px;
-    box-sizing: border-box; 
-    overflow: hidden;
+  background-color: #1e1e1e;
+  color: white;
+  border-radius: 20px;
+  
+  /* Pin to the right: no left margin, no top/bottom margin. */
+  margin-left: 15px;
+  margin-right: 15px;
+  
+  /* Let content scroll instead of hiding the scrollbar. */
+  /* overflow-y: auto; */
 }
 
-/* Language Selector */
 .language-selector {
-    margin-bottom: 20px;
-    position: relative;
-    display: inline-block;
+  margin-bottom: 20px;
+  padding-top: 15px;
+  padding-left: 15px;
+  position: relative;
+  display: inline-block;
 }
 
-/* Styled Dropdown */
 .language-selector select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: 200px;
-    padding: 10px 40px 10px 15px;
-    font-size: 14px;
-    color: #fff;
-    background-color: #2d2d2d;
-    border: 1px solid #444;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 200px;
+  padding: 10px 40px 10px 15px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #2d2d2d;
+  border: 1px solid #444;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
-/* Dropdown Arrow */
 .language-selector::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    width: 10px; 
-    height: 16px;
-    /* background-image: url('/public/arrow.png'); */
-    background-size: contain;
-    background-repeat: no-repeat;
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  width: 10px;
+  height: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
 }
 
-/* Hover and Focus Effects */
 .language-selector select:hover,
 .language-selector select:focus {
-    border-color: #666;
-    background-color: #3a3a3a;
-    outline: none;
+  border-color: #666;
+  background-color: #3a3a3a;
+  outline: none;
 }
 
 .editor-wrapper {
-    width: 100%;
-    overflow: hidden;
-  }
-  
-  .left-panel {
-    width: 40%;
-    min-width: 300px;
-    max-width: 800px;
-    padding: 25px;
-    background-color: #2d2d2d;
-    overflow: auto;
-  }
-  
-  .right-panel {
-    flex: 1;
-    min-width: 400px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    height: 100vh;
-  }
-  
-  .resizer {
-    background-color: #333;
-    transition: background-color 0.2s;
-  }
-  
-  .resizer:hover {
-    background-color: #4caf50;
-  }
-  
-  .vertical-resizer {
-    width: 8px;
-    cursor: col-resize;
-    flex-shrink: 0;
-  }
-  
-  .horizontal-resizer {
-    height: 8px;
-    cursor: row-resize;
-    flex-shrink: 0;
-  }
-  
- 
-  
-  .editor-panel {
-    height: 70%;
-    min-height: 200px;
-    position: relative;
-  }
-  
-  .console-panel {
-    flex-grow: 1;
-    min-height: 150px;
-  }
-  
-  .problem-description {
-    line-height: 1.6;
-    font-size: 15px;
-  }
-  
-  .problem-description h2 {
-    color: #4caf50;
-    margin-bottom: 1.5rem;
-    font-size: 24px;
-  }
-  
-  .problem-description p {
-    margin: 1rem 0;
-    color: #d4d4d4;
-  }
-  
-  .example-flow {
-    margin: 1.5rem 0;
-    padding-left: 1.5rem;
-    border-left: 3px solid #4caf50;
-  }
-  
-  .example-flow p {
-    font-family: 'Courier New', monospace;
-    color: #9cdcfe;
-    margin: 0.8rem 0;
-    font-size: 14px;
-  }
-  
-  .constraints-list {
-    padding-left: 1.5rem;
-    list-style-type: none;
-    margin: 1.5rem 0;
-  }
-  
-  .constraints-list li {
-    margin: 0.8rem 0;
-    padding-left: 1rem;
-    position: relative;
-    color: #d4d4d4;
-  }
-  
-  .constraints-list li::before {
-    content: "•";
-    color: #4caf50;
-    position: absolute;
-    left: 0;
-    font-size: 1.2em;
-  }
-  
-  .console-output {
-    background-color: #1e1e1e;
-    padding: 15px;
-    border-radius: 4px;
-    font-family: monospace;
-    white-space: pre-wrap;
-    color: #d4d4d4;
-    font-size: 14px;
-    height: 100%;
-  }
-  
-  .console-output pre {
-    margin: 0;
-  }
+  width: 100%;
+  overflow: hidden;
+}
+
+.left-panel {
+  width: 40%;
+  min-width: 300px;
+  max-width: 800px;
+  padding: 25px;
+  background-color: #2d2d2d;
+  overflow: auto;
+}
+
+.right-panel {
+  flex: 1;
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
+}
+
+.resizer {
+  background-color: #333;
+  transition: background-color 0.2s;
+}
+
+.resizer:hover {
+  background-color: #4caf50;
+}
+
+.vertical-resizer {
+  width: 8px;
+  cursor: col-resize;
+  flex-shrink: 0;
+}
+
+.horizontal-resizer {
+  height: 8px;
+  cursor: row-resize;
+  flex-shrink: 0;
+}
+
+.editor-panel {
+  height: 55%;
+  min-height: 150px;
+  position: relative;
+}
+
+.console-panel {
+  /* flex-grow: 1; */
+  min-height: 50px;
+  max-height: 100px;
+}
+
+.problem-description {
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.problem-description h2 {
+  color: #4caf50;
+  margin-bottom: 1.5rem;
+  font-size: 24px;
+}
+
+.problem-description p {
+  margin: 1rem 0;
+  color: #d4d4d4;
+}
+
+.example-flow {
+  margin: 1.5rem 0;
+  padding-left: 1.5rem;
+  border-left: 3px solid #4caf50;
+}
+
+.example-flow p {
+  font-family: 'Courier New', monospace;
+  color: #9cdcfe;
+  margin: 0.8rem 0;
+  font-size: 14px;
+}
+
+.constraints-list {
+  padding-left: 1.5rem;
+  list-style-type: none;
+  margin: 1.5rem 0;
+}
+
+.constraints-list li {
+  margin: 0.8rem 0;
+  padding-left: 1rem;
+  position: relative;
+  color: #d4d4d4;
+}
+
+.constraints-list li::before {
+  content: "•";
+  color: #4caf50;
+  position: absolute;
+  left: 0;
+  font-size: 1.2em;
+}
+
+.console-output {
+  background-color: #1e1e1e;
+  padding: 15px;
+  border-radius: 4px;
+  font-family: monospace;
+  white-space: pre-wrap;
+  color: #d4d4d4;
+  font-size: 14px;
+  height: 100%;
+}
+
+.console-output pre {
+  margin: 0;
+}
