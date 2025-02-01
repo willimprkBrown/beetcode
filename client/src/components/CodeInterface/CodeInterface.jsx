@@ -1,8 +1,51 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 import './CodeInterface.css';
 
 const CodeInterface = () => {
+  const [code, setCode] = useState("");
+  const [language, setLanguage] = useState("python");
+  const [output, setOutput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleCodeChange = (value) => {
+    setCode(value);
+  };
+
+  const handleLanguageChange = (event) => {
+    setLanguage(event.target.value);
+  };
+
+  const handleRun = async () => {
+    setIsLoading(true);
+    setOutput("Running code...");
+
+    try {
+      const response = await fetch("http://localhost:3001/execute", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+              code: code,
+              language: language  // Remove version from here
+          }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setOutput(data.output || "No output");
+      } else {
+        setOutput(data.error || "Error: Unable to execute code");
+      }
+    } catch (error) {
+      setOutput(`Error: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     const verticalResizer = document.getElementById('vertical-resizer');
     const leftPanel = document.getElementById('left-panel');
@@ -85,7 +128,7 @@ const CodeInterface = () => {
     };
   }, []);
 
-  return (
+  return (<>
     <div className="container">
       <div id="left-panel" className="left-panel">
         <div className="problem-description">
@@ -111,10 +154,24 @@ const CodeInterface = () => {
       <div id="vertical-resizer" className="resizer vertical-resizer"></div>
 
       <div id="right-panel" className="right-panel">
+        <div className="language-selector">
+          <select
+            id="language-selector"
+            value={language}
+            onChange={handleLanguageChange}
+          >
+            <option value="python">Python</option>
+            <option value="cpp">C++</option>
+            <option value="javascript">JavaScript</option>
+          </select>
+        </div>
         <div id="editor-panel" className="editor-panel">
           <Editor
             height="100%"
             width="100%"
+            language={language}
+            value={code}
+            onChange={handleCodeChange}
             defaultLanguage="javascript"
             defaultValue="// Your solution here"
             theme="vs-dark"
@@ -126,12 +183,17 @@ const CodeInterface = () => {
             }}
           />
         </div>
+        <div className="button-container">
+          <button className="run-button" onClick={handleRun} disabled={isLoading}>
+            {isLoading ? "Running..." : "Run Code"}
+          </button>
+        </div>
 
         <div id="horizontal-resizer" className="resizer horizontal-resizer"></div>
 
         <div id="console-panel" className="console-panel">
           <div className="console-output">
-            <pre>{/* Console output will go here */}</pre>
+            <pre>{ output }</pre>
           </div>
         </div>
       </div>
