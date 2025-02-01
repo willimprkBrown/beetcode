@@ -10,7 +10,7 @@ function ClawMachine() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false); // Set to false after 10 seconds
-    }, 10000); // 10000ms = 10 seconds
+    }, 1000); // 10000ms = 10 seconds
 
     return () => clearTimeout(timer); // Cleanup timer on unmount
   }, []);

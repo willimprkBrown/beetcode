@@ -48,7 +48,12 @@ const CodeInterface = () => {
     }
   };
 
-  return (
+  return (<>
+    <div className="problem-container">
+      <div className="problem-statement">
+        <p>Some Problem I Guess</p>
+      </div>
+    </div>
     <div className="editor-container">
       <div className="language-selector">
         <select
@@ -81,6 +86,7 @@ const CodeInterface = () => {
         <pre className="output-content">{output}</pre>
       </div>
     </div>
+    </>
   );
 };
 
