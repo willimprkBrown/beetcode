@@ -68,12 +68,16 @@ const CodeInterface = () => {
       </div>
       <div className="editor-wrapper">
         <Editor
-          height="400px"
-          width="800px"
+          height="360px"
+          width="700px"
           theme="vs-dark"
           language={language}
-          value={code}
+          value={code}        
           onChange={handleCodeChange}
+          options={{
+            wordWrap: "on",
+            automaticLayout: true
+          }}
         />
       </div>
       <div className="button-container">
