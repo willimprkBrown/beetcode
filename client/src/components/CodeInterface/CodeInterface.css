@@ -1,52 +1,63 @@
-/* src/components/MonacoEditor.css */
 .editor-container {
+    position:relative;
+    top: 0;
+    width: 60%;
+    height: 100%;
+    right: 15px;
     padding: 20px;
+    margin-top: 0.1875rem;
     background-color: #1e1e1e;
     color: white;
-  }
-  
-  .language-selector {
+    border-radius: 20px;
+    margin-left: 40%;
+    box-sizing: border-box; 
+    overflow: hidden;
+}
+
+.language-selector {
     margin-bottom: 20px;
-  }
-  
-  .language-selector label {
+}
+
+.language-selector label {
     margin-right: 10px;
-  }
-  
-  .editor-wrapper {
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  
-  .button-container {
+}
+
+.editor-wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+
+.button-container {
     margin-top: 10px;
-  }
-  
-  .run-button {
+}
+
+.run-button {
     padding: 10px 20px;
     font-size: 16px;
     background-color: #4caf50;
     color: white;
     border: none;
     cursor: pointer;
-  }
-  
-  .run-button:hover {
+}
+
+.run-button:hover {
     background-color: #45a049;
-  }
-  
-  .run-button:disabled {
+}
+
+.run-button:disabled {
     background-color: #888;
     cursor: not-allowed;
-  }
-  
-  .output-container {
+}
+
+.output-container {
     margin-top: 20px;
-  }
-  
-  .output-content {
+    border-radius: 20px;
+    background-color: #2d2d2d;
+}
+
+.output-content {
     background-color: #2d2d2d;
     padding: 10px;
     color: white;
     white-space: pre-wrap; /* Preserve formatting for pre tags */
-  }
+}

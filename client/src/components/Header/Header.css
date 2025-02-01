@@ -1,17 +1,33 @@
-.grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    margin-left: 80%;
-    padding: 15px;
-    background-color: hsl(244, 24%, 26%);
-    justify-content: end;
+/* Header Container */
+.header-container {
+    display: flex; /* Use Flexbox */
+    justify-content: space-between; /* Push items to the edges */
+    align-items: center; /* Vertically center items */
+    padding: 10px 20px; /* Add some padding */
+    background-color: hsl(244, 24%, 26%); /* Match the background color */
 }
 
+/* Header Title */
+.header-title {
+    margin: 0; /* Remove default margin */
+    font-size: 24px; /* Adjust font size */
+    color: white; /* Set text color */
+}
+
+/* Grid for Buttons */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 10px; /* Add gap between buttons */
+    justify-content: end; /* Align buttons to the right */
+}
+
+/* Buttons */
 .grid button {
     box-sizing: border-box;
-    width: 80px;
-    padding: 5px;
-    font-size: 14px;
+    width: 100px; /* Slightly larger width */
+    padding: 8px; /* Slightly larger padding */
+    font-size: 14px; /* Slightly larger font size */
     background-color: var(--title-color);
     color: lightgray;
     border: 2px solid lightgray;
@@ -19,6 +35,9 @@
     cursor: pointer;
 }
 
+/* Button Hover Effect */
 .grid button:hover {
-    
+    background-color: hsl(244, 24%, 30%); /* Hover background */
+    border-color: white; /* Hover border color */
+    color: white; /* Hover text color */
 }
