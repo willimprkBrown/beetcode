@@ -1,0 +1,52 @@
+/* src/components/MonacoEditor.css */
+.editor-container {
+    padding: 20px;
+    background-color: #1e1e1e;
+    color: white;
+  }
+  
+  .language-selector {
+    margin-bottom: 20px;
+  }
+  
+  .language-selector label {
+    margin-right: 10px;
+  }
+  
+  .editor-wrapper {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .button-container {
+    margin-top: 10px;
+  }
+  
+  .run-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .run-button:hover {
+    background-color: #45a049;
+  }
+  
+  .run-button:disabled {
+    background-color: #888;
+    cursor: not-allowed;
+  }
+  
+  .output-container {
+    margin-top: 20px;
+  }
+  
+  .output-content {
+    background-color: #2d2d2d;
+    padding: 10px;
+    color: white;
+    white-space: pre-wrap; /* Preserve formatting for pre tags */
+  }
