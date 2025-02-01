@@ -6,8 +6,7 @@ const Header = () => {
         <div className="grid">
             <button>Match</button>
             <button>Profile</button>
-            <button>Sign In</button>
-        </div>
+       </div>
     );
 };
 

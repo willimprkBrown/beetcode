@@ -53,9 +53,7 @@ const CodeInterface = () => {
 
   return (
     <div className="editor-container">
-      <h1>Monaco Code Editor</h1>
       <div className="language-selector">
-        <label htmlFor="language-selector">Select Language: </label>
         <select
           id="language-selector"
           value={language}
