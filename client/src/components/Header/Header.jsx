@@ -1,17 +1,26 @@
-import './Header.css'
+import './Header.css';
 import React from 'react';
 
 const Header = () => {
     return (
         <div className="header-container">
-            <h1 className="header-title"> beetcode </h1>
+            <h1 className="header-title">beetcode</h1>
             <div className="grid">
-                <button>Match</button>
-                <button>Profile</button>
+                <div className="button-wrapper">
+                    <div className="button-ring">
+                        <button> </button>
+                    </div>
+                    <div className="button-label">match</div>
+                </div>
+                <div className="button-wrapper">
+                    <div className="button-ring">
+                        <button> </button>
+                    </div>
+                    <div className="button-label">profile</div>
+                </div>
             </div>
         </div>
-       
     );
 };
 
-export default Header
+export default Header;
