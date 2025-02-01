@@ -136,6 +136,7 @@ const CodeInterface = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
