@@ -21,28 +21,25 @@ const CodeInterface = () => {
     setOutput("Running code...");
 
     try {
-      const response = await fetch("https://emkc.org/api/v2/piston/execute", {
+      const response = await fetch("http://localhost:3001/execute", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: 'include',
         body: JSON.stringify({
+          code: code,
           language: language,
-          version: "latest",
-          files: [
-            {
-              content: code,
-            },
-          ],
+          version: "latest"
         }),
       });
 
       const data = await response.json();
 
-      if (data.run) {
-        setOutput(data.run.output || "No output");
+      if (response.ok) {
+        setOutput(data.output || "No output");
       } else {
-        setOutput("Error: Unable to execute code.");
+        setOutput(data.error || "Error: Unable to execute code");
       }
     } catch (error) {
       setOutput(`Error: ${error.message}`);
@@ -63,6 +60,7 @@ const CodeInterface = () => {
         >
           <option value="python">Python</option>
           <option value="cpp">C++</option>
+          <option value="javascript">JavaScript</option>
         </select>
       </div>
       <div className="editor-wrapper">
