@@ -1,11 +1,12 @@
-.editor-container {
-    position:relative;
-    top: 0;
-    width: 60%;
-    height: 100%;
-    right: 15px;
-    padding: 20px;
-    margin-top: 0.1875rem;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    display: flex;
+    height: 100vh;
     background-color: #1e1e1e;
     color: white;
     border-radius: 20px;
@@ -63,39 +64,121 @@
 .editor-wrapper {
     width: 100%;
     overflow: hidden;
-}
-
-.button-container {
-    margin-top: 10px;
-}
-
-.run-button {
-    padding: 10px 20px;
-    font-size: 16px;
+  }
+  
+  .left-panel {
+    width: 40%;
+    min-width: 300px;
+    max-width: 800px;
+    padding: 25px;
+    background-color: #2d2d2d;
+    overflow: auto;
+  }
+  
+  .right-panel {
+    flex: 1;
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100vh;
+  }
+  
+  .resizer {
+    background-color: #333;
+    transition: background-color 0.2s;
+  }
+  
+  .resizer:hover {
     background-color: #4caf50;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.run-button:hover {
-    background-color: #45a049;
-}
-
-.run-button:disabled {
-    background-color: #888;
-    cursor: not-allowed;
-}
-
-.output-container {
-    margin-top: 20px;
-    border-radius: 20px;
-    background-color: #2d2d2d;
-}
-
-.output-content {
-    background-color: #2d2d2d;
-    padding: 10px;
-    color: white;
-    white-space: pre-wrap; /* Preserve formatting for pre tags */
-}
+  }
+  
+  .vertical-resizer {
+    width: 8px;
+    cursor: col-resize;
+    flex-shrink: 0;
+  }
+  
+  .horizontal-resizer {
+    height: 8px;
+    cursor: row-resize;
+    flex-shrink: 0;
+  }
+  
+ 
+  
+  .editor-panel {
+    height: 70%;
+    min-height: 200px;
+    position: relative;
+  }
+  
+  .console-panel {
+    flex-grow: 1;
+    min-height: 150px;
+  }
+  
+  .problem-description {
+    line-height: 1.6;
+    font-size: 15px;
+  }
+  
+  .problem-description h2 {
+    color: #4caf50;
+    margin-bottom: 1.5rem;
+    font-size: 24px;
+  }
+  
+  .problem-description p {
+    margin: 1rem 0;
+    color: #d4d4d4;
+  }
+  
+  .example-flow {
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+    border-left: 3px solid #4caf50;
+  }
+  
+  .example-flow p {
+    font-family: 'Courier New', monospace;
+    color: #9cdcfe;
+    margin: 0.8rem 0;
+    font-size: 14px;
+  }
+  
+  .constraints-list {
+    padding-left: 1.5rem;
+    list-style-type: none;
+    margin: 1.5rem 0;
+  }
+  
+  .constraints-list li {
+    margin: 0.8rem 0;
+    padding-left: 1rem;
+    position: relative;
+    color: #d4d4d4;
+  }
+  
+  .constraints-list li::before {
+    content: "•";
+    color: #4caf50;
+    position: absolute;
+    left: 0;
+    font-size: 1.2em;
+  }
+  
+  .console-output {
+    background-color: #1e1e1e;
+    padding: 15px;
+    border-radius: 4px;
+    font-family: monospace;
+    white-space: pre-wrap;
+    color: #d4d4d4;
+    font-size: 14px;
+    height: 100%;
+  }
+  
+  .console-output pre {
+    margin: 0;
+  }
