@@ -72,9 +72,13 @@ body {
 h1,
 h2,
 h3 {
-  color: var(--body-color);
+  color: #d4d4d4;
   font-weight: var(--font-semibold);
   line-height: 1.2;
+}
+
+p {
+  color: #A0A0A0;
 }
 
 ul {

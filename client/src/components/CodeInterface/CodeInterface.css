@@ -219,7 +219,6 @@ overflow: visible !important;
     cursor: not-allowed;
   }
 
-
   .flipped {
     transform: rotate(180deg);
     transform-origin: center;
