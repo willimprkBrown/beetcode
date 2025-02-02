@@ -91,7 +91,8 @@ io.on('connection', (socket) => {
     });
 
     socket.on('win', ({ user, roomId }) => {
-        socket.nsp.to(roomId).emit('winned', { user })
+        socket.broadcast(roomId).emit('winned', { user })
+        socket.emit('winned', { user })
     })
 
     socket.on('leaveroom', ({ user }) => {
