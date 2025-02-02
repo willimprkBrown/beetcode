@@ -1,5 +1,3 @@
-// CodeInterface.jsx
-
 import React, { useState, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 import './CodeInterface.css';
@@ -237,16 +235,12 @@ print(twoSum([2, 7, 11, 15], 9))
   
 
 
-  const checkTestCases = (actualOutput, testCases) => {
-    console.log(actualOutput)
-    // Split both the actual and expected outputs into individual lines
+  const checkTestCases = (actualOutput, testCases) => {    // Split both the actual and expected outputs into individual lines
     const actualLines = actualOutput.trim().split('\n');
     const expectedLines = Object.values(testCases).map(testCase => {
       const jsonString = JSON.stringify(testCase.expectedOutput);
       return jsonString.replace(/,/g, ', '); // Add space after commas
     });
-    console.log(actualLines, expectedLines);
-    console.log('hello');
 
     // Check if the number of lines match
     if (actualLines.length !== expectedLines.length) {
