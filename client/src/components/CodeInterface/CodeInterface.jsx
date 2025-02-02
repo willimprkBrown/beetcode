@@ -272,6 +272,8 @@ print(twoSum([2, 7, 11, 15], 9))
 
         setOutput("u right");
 
+        const user = localStorage.getItem('user')
+
         socket.emit('win', { user, roomId})
         setTimeout(() => {
           nav('/select#')
