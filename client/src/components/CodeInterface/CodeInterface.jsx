@@ -16,7 +16,6 @@ const CodeInterface = () => {
   const [roomId, setRoomId] = useState('');
   const [flipped, setFlipped] = useState(false);
   const [disrupt, setDisrupt] = useState(false);
-  const [connected, setConnected] = useState(false);
   const [hallucinate, setHallucinate] = useState(false);
 
   const [selectedCharacter, setSelectedCharacter] = useState('')
@@ -150,7 +149,7 @@ const CodeInterface = () => {
       setTimeout(() => {
         setFlipped(false)
       }, 10000)
-    })
+    }, [socket])
 
     socket.on('disrupted', () => {
       console.log('Disrupted')
@@ -178,7 +177,6 @@ const CodeInterface = () => {
 
       toggleBlur()
       setRoomId(roomid)
-      setConnected(true)
     })
 
     return () => {
@@ -189,7 +187,7 @@ const CodeInterface = () => {
   }, [socket]);
 
   const handleCodeChange = (value) => {
-    if (disrupt && value.length % 10 == 0) {
+    if (disrupt && value.length % 10 === 0) {
       value += '🤯'
     }
 

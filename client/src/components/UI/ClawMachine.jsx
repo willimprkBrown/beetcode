@@ -38,7 +38,7 @@ function ClawMachine() {
       document.removeEventListener("click", handleUserInteraction);
       document.removeEventListener("keydown", handleUserInteraction);
     };
-  }, []);
+  }, [hasUserInteracted]);
 
   // Hide the ClawMachine after 10 seconds
   useEffect(() => {
