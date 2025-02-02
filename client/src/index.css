@@ -72,7 +72,7 @@ body {
 h1,
 h2,
 h3 {
-  color: #d4d4d4;
+  color: #282c3c;
   font-weight: var(--font-semibold);
   line-height: 1.2;
 }
