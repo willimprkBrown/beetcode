@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 import './CodeInterface.css';
 import io from 'socket.io-client';
+import ProblemBank from './ProblemBank.jsx'
 
 const ENDPOINT = 'http://localhost:3001'; // Replace with your server endpoint
 
@@ -88,55 +89,113 @@ const CodeInterface = () => {
   const handleRun = async () => {
     setIsLoading(true);
     setOutput("Running code...");
-
+    const updatedCode = appendTestCasesToCode(code);
+    console.log(updatedCode);
+  
     try {
-      const response = await fetch("http://localhost:3001/execute", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-              code: code,
-              language: language
-          }),
+      // First request: execute original code
+      const response1 = await fetch("http://localhost:3001/execute", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          code: code,
+          language: language,
+        }),
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setOutput(data.output || "No output");
-      } else {
-        setOutput(data.error || "Error: Unable to execute code");
+  
+      const data1 = await response1.json();
+  
+      if (!response1.ok) {
+        setOutput(data1.error || "Error: Unable to execute code");
+        return; // Exit early if the first request failed
       }
+  
+      setOutput(data1.output || "No output");
+  
+      // Wait for 200ms before making the second request
+      await new Promise(resolve => setTimeout(resolve, 200));
+  
+      // Second request: execute updated code (after the delay)
+      const response2 = await fetch("http://localhost:3001/execute", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          code: updatedCode,
+          language: language,
+        }),
+      });
+  
+      const data2 = await response2.json();
+  
+      if (response2.ok && checkTestCases(data2.output, ProblemBank[0][1])) {
+        setOutput("u right");
+      } else {
+        setOutput(data2.error || "u wrong");
+      }
+  
     } catch (error) {
       setOutput(`Error: ${error.message}`);
     } finally {
       setIsLoading(false);
     }
   };
+  
+
+
+  const checkTestCases = (actualOutput, testCases) => {
+    console.log(actualOutput)
+    // Split both the actual and expected outputs into individual lines
+    const actualLines = actualOutput.trim().split('\n');
+    const expectedLines = Object.values(testCases).map(testCase => {
+      const jsonString = JSON.stringify(testCase.expectedOutput);
+      return jsonString.replace(/,/g, ', '); // Add space after commas
+    });
+    console.log(actualLines, expectedLines);
+    console.log('hello');
+
+    // Check if the number of lines match
+    if (actualLines.length !== expectedLines.length) {
+      return false;
+    }
+
+    // Compare each line one by one
+    for (let i = 0; i < actualLines.length; i++) {
+      if (actualLines[i] !== expectedLines[i]) {
+        return false;
+      }
+    }
+
+    // If all lines match
+    return true;
+  }
+
+  const appendTestCasesToCode = (code) => {
+    const testCases = ProblemBank[0][1];
+  
+    let updatedCode = code;
+  
+    for (let key in testCases) {
+      const testCase = testCases[key];
+      const { nums, target } = testCase;
+  
+      updatedCode += `
+print(twoSum(${JSON.stringify(nums)}, ${JSON.stringify(target)}));
+      `;
+    }
+  
+    return updatedCode;
+  };
+  
 
   return (
     <>
       <div className="container">
         <div id="left-panel" className="left-panel">
-          <div className="problem-description">
-            <h2>Two Sum</h2>
-            <p>Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.</p>
-            
-            <div className="example-flow">
-              <p>Example 1:</p>
-              <p>Input: nums = [2,7,11,15], target = 9</p>
-              <p>Output: [0,1]</p>
-              <p>Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].</p>
-            </div>
-
-            <ul className="constraints-list">
-              <li>2 ≤ nums.length ≤ 10⁴</li>
-              <li>-10⁹ ≤ nums[i] ≤ 10⁹</li>
-              <li>-10⁹ ≤ target ≤ 10⁹</li>
-              <li>Only one valid answer exists.</li>
-            </ul>
-          </div>
+         {ProblemBank[0][0]}
         </div>
 
         <div id="vertical-resizer" className="resizer vertical-resizer"></div>
@@ -160,8 +219,8 @@ const CodeInterface = () => {
               language={language}
               value={code}
               onChange={handleCodeChange}
-              defaultLanguage="javascript"
-              defaultValue="// Your solution here"
+              defaultLanguage="python"
+              defaultValue={`${ProblemBank[0][2]}`}
               theme="vs-dark"
               options={{
                 minimap: { enabled: false },
@@ -177,8 +236,8 @@ const CodeInterface = () => {
               language={language}
               value={code}
               onChange={handleCodeChange}
-              defaultLanguage="javascript"
-              defaultValue="// Your solution here"
+              defaultLanguage="python"
+              defaultValue={`${ProblemBank[0][2]}`}
               theme="vs-dark"
               options={{
                 minimap: { enabled: false },
