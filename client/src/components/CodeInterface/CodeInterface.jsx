@@ -18,6 +18,88 @@ const CodeInterface = () => {
   const [roomId, setRoomId] = useState('')
   const [flipped, setFlipped] = useState(false)
   const [disrupt, setDisrupt] = useState(false)
+  
+  useEffect(() => {
+    const verticalResizer = document.getElementById('vertical-resizer');
+    const leftPanel = document.getElementById('left-panel');
+    const rightPanel = document.getElementById('right-panel');
+    const horizontalResizer = document.getElementById('horizontal-resizer');
+    const editorPanel = document.getElementById('editor-panel');
+    const consolePanel = document.getElementById('console-panel');
+
+    let isVerticalResizing = false;
+    let startX = 0;
+    let leftWidth = 0;
+
+    const handleVerticalMouseDown = (e) => {
+      isVerticalResizing = true;
+      startX = e.clientX;
+      leftWidth = leftPanel.offsetWidth;
+      document.addEventListener('mousemove', handleVerticalMouseMove);
+      document.addEventListener('mouseup', handleVerticalMouseUp);
+    };
+
+    const handleVerticalMouseMove = (e) => {
+      if (!isVerticalResizing) return;
+      const dx = e.clientX - startX;
+      const newLeftWidth = leftWidth + dx;
+      const containerWidth = document.querySelector('.container').offsetWidth;
+      
+      if (newLeftWidth > 300 && newLeftWidth < containerWidth - 400) {
+        leftPanel.style.width = `${newLeftWidth}px`;
+        rightPanel.style.width = `calc(100% - ${newLeftWidth}px)`;
+      }
+    };
+
+    const handleVerticalMouseUp = () => {
+      isVerticalResizing = false;
+      document.removeEventListener('mousemove', handleVerticalMouseMove);
+      document.removeEventListener('mouseup', handleVerticalMouseUp);
+    };
+
+    // Horizontal resizing (editor-console)
+    let isHorizontalResizing = false;
+    let startY = 0;
+    let editorHeight = 0;
+
+    const handleHorizontalMouseDown = (e) => {
+      isHorizontalResizing = true;
+      startY = e.clientY;
+      editorHeight = editorPanel.offsetHeight;
+      document.addEventListener('mousemove', handleHorizontalMouseMove);
+      document.addEventListener('mouseup', handleHorizontalMouseUp);
+    };
+
+    const handleHorizontalMouseMove = (e) => {
+        if (!isHorizontalResizing) return;
+        const dy = e.clientY - startY;
+        const newEditorHeight = editorHeight + dy;
+        const containerHeight = rightPanel.offsetHeight;
+      
+        if (newEditorHeight > 200 && newEditorHeight < containerHeight - 150) {
+          editorPanel.style.height = `${newEditorHeight}px`;
+          consolePanel.style.flex = `1 1 auto`;
+        }
+      };
+
+    const handleHorizontalMouseUp = () => {
+      isHorizontalResizing = false;
+      document.removeEventListener('mousemove', handleHorizontalMouseMove);
+      document.removeEventListener('mouseup', handleHorizontalMouseUp);
+    };
+
+    verticalResizer.addEventListener('mousedown', handleVerticalMouseDown);
+    horizontalResizer.addEventListener('mousedown', handleHorizontalMouseDown);
+
+    return () => {
+      verticalResizer.removeEventListener('mousedown', handleVerticalMouseDown);
+      horizontalResizer.removeEventListener('mousedown', handleHorizontalMouseDown);
+      document.removeEventListener('mousemove', handleVerticalMouseMove);
+      document.removeEventListener('mouseup', handleVerticalMouseUp);
+      document.removeEventListener('mousemove', handleHorizontalMouseMove);
+      document.removeEventListener('mouseup', handleHorizontalMouseUp);
+    };
+  }, []);
 
   useEffect(() => {
     const newSocket = io(ENDPOINT);
