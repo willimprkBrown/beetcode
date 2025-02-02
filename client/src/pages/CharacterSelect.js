@@ -3,9 +3,30 @@ import { motion, AnimatePresence } from "framer-motion";
 import "./CharacterSelect.css";
 
 const characters = [
-  { id: 1, name: "Beet", photo: "beet.png", description: "BEET your opponent into submission!", power: "Powerup: Beetdown - Stuns the opponent for 30 seconds, completely disabling their controls"},
-  { id: 2, name: "Mushroom", photo: "mushroomy.png", description: "MUSH your opponent’s chances of winning!", power: "Powerup: Shroomed - Causes the opponent to hallucinate, guaranteeing they fail their next tests" },
-  { id: 3, name: "Cauliflower", photo: "cauliflower.png", description: "Get ready to CAULIBRATE the chaos!", power: "Powerup: CauliFlip – Inverts your opponent's code for 30 seconds, flipping their world upside down"},
+  {
+    id: 1,
+    name: "Beet",
+    photo: "beet.png",
+    description: "BEET your opponent into submission!",
+    power:
+      "Powerup: Beetdown - Stuns the opponent for 30 seconds, completely disabling their controls",
+  },
+  {
+    id: 2,
+    name: "Mushroom",
+    photo: "mushroomy.png",
+    description: "MUSH your opponent’s chances of winning!",
+    power:
+      "Powerup: Shroomed - Causes the opponent to hallucinate, guaranteeing they fail their next tests",
+  },
+  {
+    id: 3,
+    name: "Cauliflower",
+    photo: "cauliflower.png",
+    description: "Get ready to CAULIBRATE the chaos!",
+    power:
+      "Powerup: CauliFlip – Inverts your opponent's code for 30 seconds, flipping their world upside down",
+  },
 ];
 
 function CharacterSelect() {
@@ -35,8 +56,16 @@ function CharacterSelect() {
         <div className="character-display">
           {/* Previous Character (Background, Semi-Transparent) */}
           <motion.img
-            key={characters[(currentIndex - 1 + characters.length) % characters.length].id}
-            src={characters[(currentIndex - 1 + characters.length) % characters.length].photo}
+            key={
+              characters[
+                (currentIndex - 1 + characters.length) % characters.length
+              ].id
+            }
+            src={
+              characters[
+                (currentIndex - 1 + characters.length) % characters.length
+              ].photo
+            }
             alt="Previous Character"
             className="character-image background left"
             initial={{ opacity: 0.3, scale: 0.8, x: -100 }}
@@ -60,7 +89,7 @@ function CharacterSelect() {
                 alt={characters[currentIndex].name}
                 className="character-image"
               />
-             
+
               <h3>
                 {characters[currentIndex].name}
                 <span
@@ -71,7 +100,6 @@ function CharacterSelect() {
                 </span>
               </h3>
               <p>{characters[currentIndex].description}</p>
-
             </motion.div>
           </AnimatePresence>
 
