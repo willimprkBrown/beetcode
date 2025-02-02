@@ -102,7 +102,7 @@ function CharacterSelect() {
                   className="question-mark"
                   data-tooltip={characters[currentIndex].power}
                 >
-                  ?
+                  <i class="fa-solid fa-bolt"></i>
                 </span>
               </h3>
               <p>{characters[currentIndex].description}</p>
