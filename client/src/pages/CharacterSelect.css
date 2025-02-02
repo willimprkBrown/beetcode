@@ -6,12 +6,19 @@
   margin-top: 40px;
   padding-top: 120px;
   padding: 30px;
-  /* background-image: url("/arcade.webp"); */
+  /* background-image: "../..asse"; */
   background-size: cover; /* Ensures the image covers the entire container */
   background-position: center; /* Centers the background image */
   border-radius: 30px;
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
   border: 10px solid #fff;
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Prevent scrolling */
 }
 
 .carousel {
