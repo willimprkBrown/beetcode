@@ -26,16 +26,12 @@ const io = new SocketServer(server, {
     }
   });
 
-app.use(cors(
-    {
-        origin: "http://localhost:3000", 
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        credentials: true, 
-        allowedHeaders: ['Origin', "X-Requested-With", "Content-Type", "Accept"],
-        "preflightContinue": false,
-        "optionsSuccessStatus": 200
-    }
-));
+  app.use(cors({
+    origin: 'http://localhost:3000', // Replace with your frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true // Enable CORS credentials (cookies, authorization headers)
+  }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json()); 
