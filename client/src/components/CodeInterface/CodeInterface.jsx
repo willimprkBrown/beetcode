@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Editor from '@monaco-editor/react';
 import './CodeInterface.css';
 import io from 'socket.io-client';
@@ -7,6 +8,8 @@ import ProblemBank from './ProblemBank.jsx'
 const ENDPOINT = 'https://beetcode-11s8.onrender.com'; // Replace with your server endpoint
 
 const CodeInterface = () => {
+
+  const nav = useNavigate()
   const [code, setCode] = useState("");
   const [language, setLanguage] = useState("python");
   const [output, setOutput] = useState("");
@@ -165,6 +168,13 @@ const CodeInterface = () => {
       setHallucinate(3)
     })
 
+    socket.on('winned', ({ user }) => {
+      setOutput(user + " Won!")
+      setTimeout(() => {
+        nav('/select#')
+      }, 5000)
+    })
+
     function toggleBlur() {
       setTimeout(() => {
         var overlay = document.querySelector('.blur-overlay');
@@ -258,7 +268,12 @@ print(twoSum([2, 7, 11, 15], 9))
         setOutput("u wrong")
       } else
       if (response2.ok && checkTestCases(data2.output, ProblemBank[0][1])) {
+
         setOutput("u right");
+
+        let user = localStorage.getItem('user')
+
+        socket.emit('win', { user, roomId })
       } else {
         setOutput(data2.error || "u wrong");
       }

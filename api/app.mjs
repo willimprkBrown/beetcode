@@ -90,6 +90,10 @@ io.on('connection', (socket) => {
         }
     });
 
+    socket.on('win', ({ user, roomId }) => {
+        socket.nsp.to(roomId).emit('winned', { user })
+    })
+
     socket.on('leaveroom', ({ user }) => {
         let index = rooms.indexOf(user)
         console.log(rooms)
