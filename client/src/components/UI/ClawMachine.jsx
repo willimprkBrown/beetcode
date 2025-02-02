@@ -255,19 +255,20 @@ function ClawMachine() {
       {(
 
         <motion.div
-  className="custom-font text-box" // Apply both classes
-  style={{ position: "absolute",
-      top: "68%", // Position beneath the expanded ball
-      left: "50%",
-      transform: "translateX(-50%)", // Center horizontally
-      color: "#153A1c", // White text
-      fontSize: "20px", // Adjust font size as needed
-      fontWeight: "bold", // Bold text
-      textAlign: "center", // Center the text
-      padding: "10px 20px", // Add padding
-      borderRadius: "10px", // Rounded corners
-      zIndex: 10000, // Ensure it's above everything else
-      fontFamily: "'Born2bSportyFS', sans-serif"}}
+        className="custom-font text-box" // Apply both classes
+        style={{
+          position: "absolute",
+          top: "65%", // Position beneath the expanded ball
+          left: "47.5%",
+          transform: "translateX(-50%)", // Center horizontally
+          color: "#153A1c", // White text
+          fontSize: "35px", // Adjust font size as needed
+          fontWeight: "bold", // Bold text
+          textAlign: "center", // Center the text
+          padding: "10px 20px", // Add padding
+          borderRadius: "10px", // Rounded corners
+          zIndex: 10000, // Ensure it's above everything else
+          fontFamily: "'Born2bSportyFS', sans-serif",}}
   initial={{ opacity: 0 }}
   animate={{ opacity: shouldOpacity2 ? 100 : 0 }}
   transition={{ duration: 0.5 }}
