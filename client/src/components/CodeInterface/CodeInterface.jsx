@@ -169,6 +169,7 @@ const CodeInterface = () => {
     })
 
     socket.on('winned', ({ user }) => {
+      console.log('win')
       setOutput(user + " Won!")
       setTimeout(() => {
         nav('/select#')
@@ -274,6 +275,7 @@ print(twoSum([2, 7, 11, 15], 9))
         let user = localStorage.getItem('user')
 
         socket.emit('win', { user, roomId })
+
       } else {
         setOutput(data2.error || "u wrong");
       }
