@@ -85,6 +85,8 @@ io.on('connection', (socket) => {
         if (rooms.length == 0) {
             rooms.push(user)
             socket.join(user)
+        } else if (rooms.includes(user)) {
+            socket.join(user)
         } else {
             const opp = rooms.pop()
             socket.join(opp)
@@ -92,12 +94,25 @@ io.on('connection', (socket) => {
         }
     });
 
+    socket.on('leaveroom', ({ user }) => {
+        let index = rooms.indexOf(user)
+        console.log(rooms)
+        if (index > -1) {
+            rooms.splice(index, 1)
+        }
+        console.log(rooms)
+    })
+
     socket.on('flip', ({ roomId }) => {
         socket.to(roomId).emit('flipped');
     });
 
     socket.on('disrupt', ({ roomId }) => {
         socket.to(roomId).emit('disrupted')
+    })
+
+    socket.on('hallucinate', ({ roomId }) => {
+        socket.to(roomId).emit('hallucinating')
     })
 
     socket.on('disconnect', () => {
