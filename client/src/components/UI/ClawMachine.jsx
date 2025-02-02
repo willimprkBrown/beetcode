@@ -217,7 +217,6 @@ function ClawMachine() {
       />
 
       {/* Ball copy */}
-  <p onClick={navLogin}>TEMPORARY STUFF</p>
   <motion.img
     onClick={navLogin}
     src={isHovered ? newImage : copy} // Toggle between the two images based on hover state
@@ -244,7 +243,8 @@ function ClawMachine() {
   {`
     @font-face {
       font-family: 'Born2bSportyFS';
-      src: url('/assets/Born2bSportyFS.otf') format('opentype');
+      // src: url('/assets/Born2bSportyFS.otf') format('opentype');
+      src: url('/Born2bSportyFS.otf') format('opentype');
       font-weight: normal;
       font-style: normal;
     }
@@ -253,27 +253,21 @@ function ClawMachine() {
 
       {/* Textbox beneath the newImage */}
       {(
-        // <motion.div
-        //   style={{
-        //     position: "absolute",
-        //     top: "68%", // Position beneath the expanded ball
-        //     left: "50%",
-        //     transform: "translateX(-50%)", // Center horizontally
-        //     color: "#153A1c", // White text
-        //     fontSize: "20px", // Adjust font size as needed
-        //     fontWeight: "bold", // Bold text
-        //     textAlign: "center", // Center the text
-        //     padding: "10px 20px", // Add padding
-        //     borderRadius: "10px", // Rounded corners
-        //     zIndex: 10000, // Ensure it's above everything else
-        //     fontFamily: "'Born2bSportyFS', sans-serif",
-        //   }}
-        //   initial={{ opacity: 0 }} // Start invisible
-        //   animate={{ opacity: shouldOpacity2 ? 100 : 0, }} // Fade in
-        //   transition={{ duration: 0.5 }} // Smooth fade-in
-        // >
+
         <motion.div
   className="custom-font text-box" // Apply both classes
+  style={{ position: "absolute",
+      top: "68%", // Position beneath the expanded ball
+      left: "50%",
+      transform: "translateX(-50%)", // Center horizontally
+      color: "#153A1c", // White text
+      fontSize: "20px", // Adjust font size as needed
+      fontWeight: "bold", // Bold text
+      textAlign: "center", // Center the text
+      padding: "10px 20px", // Add padding
+      borderRadius: "10px", // Rounded corners
+      zIndex: 10000, // Ensure it's above everything else
+      fontFamily: "'Born2bSportyFS', sans-serif"}}
   initial={{ opacity: 0 }}
   animate={{ opacity: shouldOpacity2 ? 100 : 0 }}
   transition={{ duration: 0.5 }}
@@ -308,7 +302,7 @@ function ClawMachine() {
         alt="black"
         style={{
           position: "absolute",
-          width: "100vw", // Adjust size as needed
+          width: "1000vw", // Adjust size as needed
           height: "100vh",
           zIndex: 9990,
         }}
