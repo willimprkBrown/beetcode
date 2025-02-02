@@ -21,13 +21,13 @@ const server = http.createServer(app);
 
 const io = new SocketServer(server, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: "https://beetcode-11s8.onrender.com",
       methods: ["GET", "POST"]
     }
   });
 
   app.use(cors({
-    origin: 'http://localhost:3000', // Replace with your frontend URL
+    origin: 'https://beetcode-11s8.onrender.com', // Replace with your frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true // Enable CORS credentials (cookies, authorization headers)
