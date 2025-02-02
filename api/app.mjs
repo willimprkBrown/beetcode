@@ -1,3 +1,5 @@
+// app.mjs
+
 import './config.mjs'
 import './db.mjs'
 import express from 'express'
@@ -9,10 +11,20 @@ import rateLimit from 'express-rate-limit';
 import passport from 'passport'
 import mongoose from 'mongoose'
 import axios from 'axios'
+import { Server as SocketServer } from 'socket.io';
+import http from 'http';
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
 const app = express()
+const server = http.createServer(app);
+
+const io = new SocketServer(server, {
+    cors: {
+      origin: "http://localhost:3000",
+      methods: ["GET", "POST"]
+    }
+  });
 
 app.use(cors(
     {
@@ -62,6 +74,38 @@ passport.use(User.createStrategy())
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
+const rooms = []
+
+// WebSocket (Socket.IO) setup
+io.on('connection', (socket) => {
+    console.log(`Socket connected: ${socket.id}`);
+
+    socket.on('joinRoom', (user) => {
+        
+        if (rooms.length == 0) {
+            rooms.push(user)
+            socket.join(user)
+        } else {
+            const opp = rooms.pop()
+            socket.join(opp)
+            socket.nsp.to(opp).emit('joined', { roomid: opp });
+        }
+    });
+
+    socket.on('flip', ({ roomId }) => {
+        socket.to(roomId).emit('flipped');
+    });
+
+    socket.on('disrupt', ({ roomId }) => {
+        socket.to(roomId).emit('disrupted')
+    })
+
+    socket.on('disconnect', () => {
+        console.log(`Socket disconnected: ${socket.id}`);
+    });
+});
+
+// Existing endpoint for code execution
 app.post('/execute', executeLimiter, async (req, res) => {
     try {
         const { code, language } = req.body;
@@ -124,24 +168,26 @@ app.post('/execute', executeLimiter, async (req, res) => {
     }
 });
 
+// Existing endpoints for login and register
 app.post('/login', passport.authenticate('local', {keepSessionInfo: true}), function(req, res) {
     console.log("Login")
     const user = req.session.passport.user
     console.log(user)
-    req.logIn(user, function (err) { // <-- Log user in
-        return res.json({ user })
+    req.logIn(user, function (err) {
+        return res.json({ user });
      });
-    // res.json({ user: req.session.passport.user })
 });
 
 app.post('/register', function (req, res, next) {
     User.register({ username: req.body.username, active: false }, req.body.password, (err) => {
         if (err) {
-            return res.json({ status: false })
+            return res.json({ status: false });
         }
-        return res.json({ status: true })
-    })
-})
+        return res.json({ status: true });
+    });
+});
 
-const port = process.env.PORT || 3001
-app.listen(port, () => {console.log(`Server is listening on ${port}`)})
+const port = process.env.PORT || 3001;
+server.listen(port, () => {
+    console.log(`Server is listening on ${port}`);
+});

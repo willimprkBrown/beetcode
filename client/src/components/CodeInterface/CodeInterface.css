@@ -221,6 +221,5 @@ overflow: visible !important;
 
   .flipped {
     transform: rotate(180deg);
-    transform-origin: center; /* Ensures the flip is around the center */
-    transition: transform 0.3s ease-in-out; /* Optional: Adds smooth animation */
+    transform-origin: center;
   }
