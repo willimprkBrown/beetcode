@@ -9,8 +9,8 @@
 
 .login-page .container {
   background: #efdeeb;
-  border-radius: 15px; 
-  box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.7);
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 0 15px 5px #768fff; /* Glowing white border */
   text-align: center;
   width: 100%; 
   max-width: 600px; 
