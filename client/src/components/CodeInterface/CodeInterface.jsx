@@ -272,9 +272,7 @@ print(twoSum([2, 7, 11, 15], 9))
 
         setOutput("u right");
 
-        setTimeout(() => {
-          nav('/select#')
-        }, 5000)
+        socket.emit('win', { user, roomId})
 
       } else {
         setOutput(data2.error || "u wrong");
