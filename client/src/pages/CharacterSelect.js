@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import "./CharacterSelect.css";
 
 const characters = [
@@ -30,6 +31,7 @@ const characters = [
 ];
 
 function CharacterSelect() {
+  const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
 
@@ -44,6 +46,10 @@ function CharacterSelect() {
   const handleSelect = () => {
     setSelectedCharacter(characters[currentIndex]);
   };
+
+  const handleNavigate = () => {
+    navigate('/match')
+  }
 
   return (
     <div className="carousel-container">
@@ -123,6 +129,10 @@ function CharacterSelect() {
 
       <button className="select-button" onClick={handleSelect}>
         Select Character
+      </button>
+
+      <button className="play-button" onClick={handleNavigate}> 
+        Match!
       </button>
 
       {selectedCharacter && (

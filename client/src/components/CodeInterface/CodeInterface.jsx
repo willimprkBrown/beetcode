@@ -13,9 +13,10 @@ const CodeInterface = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [socket, setSocket] = useState(null);
-  const [roomId, setRoomId] = useState('')
-  const [flipped, setFlipped] = useState(false)
-  const [disrupt, setDisrupt] = useState(false)
+  const [roomId, setRoomId] = useState('');
+  const [flipped, setFlipped] = useState(false);
+  const [disrupt, setDisrupt] = useState(false);
+  const [connected, setConnected] = useState(false);
   
   useEffect(() => {
     const verticalResizer = document.getElementById('vertical-resizer');
@@ -125,6 +126,8 @@ const CodeInterface = () => {
   useEffect(() => {
     if (!socket) return;
 
+    handleJoinRoom()
+
     socket.on('flipped', () => {
       console.log("Flipping")
       setFlipped(true)
@@ -143,9 +146,19 @@ const CodeInterface = () => {
       }, 10000)
     })
 
+    function toggleBlur() {
+      setTimeout(() => {
+        var overlay = document.querySelector('.blur-overlay');
+        overlay.classList.toggle('active'); 
+      }, 5000)
+    }
+
     socket.on('joined', ({ roomid }) => {
       console.log("Joined " + roomid)
+
+      toggleBlur()
       setRoomId(roomid)
+      setConnected(true)
     })
 
     return () => {
@@ -278,6 +291,7 @@ print(twoSum(${JSON.stringify(nums)}, ${JSON.stringify(target)}));
 
   return (
     <>
+      <div class="blur-overlay active"></div>
       <div className="container">
         <div id="left-panel" className="left-panel">
          {ProblemBank[0][0]}

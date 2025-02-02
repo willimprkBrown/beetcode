@@ -14,7 +14,7 @@ root.render(
   <BrowserRouter>
   <Header/>
   <Routes>
-    <Route path='/' element={<App />} />
+    <Route path="match" element={<App />} />
     <Route path="login" element={<Login/>} />
     <Route path="register" element={<Register/>} />
     <Route path="select" element={<CharacterSelect/>} />

@@ -19,10 +19,25 @@
   margin-left: 15px;
   margin-right: 15px;
   overflow: hidden;
-
-
   /* Let content scroll instead of hiding the scrollbar. */
   /* overflow-y: auto; */
+}
+
+.blur-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    pointer-events: all; /* Prevent interaction when blurred */
+    z-index: 1000;
+    transition: backdrop-filter 0.3s;
+    display: none;
+  }
+
+.blur-overlay.active {
+    display: block;
 }
 
 .language-selector {
@@ -245,4 +260,8 @@ overflow: visible !important;
   .flipped {
     transform: rotate(180deg);
     transform-origin: center;
+  }
+
+  .blur {
+    filter:blur(3px);
   }
