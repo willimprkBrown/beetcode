@@ -138,7 +138,7 @@ function CharacterSelect() {
 
       {selectedCharacter && (
         <div className="selected-character">
-          <h3>Selected: {selectedCharacter.name}</h3>
+          <p>Selected: {selectedCharacter.name}</p>
         </div>
       )}
     </div>
