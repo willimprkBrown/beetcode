@@ -97,11 +97,14 @@ function Register() {
   return (
     <div className="login-page">
       <div className="container">
-        <img src="/path-to-your-image.jpg" alt="Logo" className="login-image" />
+        {/* Use the same Tetris GIF as the Login page */}
+        <img src="/tetris.gif" alt="Tetris Logo" className="login-image" />
         <div>
           <h2>Register New User</h2>
           <input ref={userRef} type="text" placeholder="username" />
+          <br />
           <input ref={pwRef} type="text" placeholder="password" />
+          <br />
           <div className="button-container">
             <button onClick={registry} type="submit" className="gameboy-button">
               <span>REGISTER</span>
