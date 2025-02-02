@@ -17,6 +17,9 @@ const CodeInterface = () => {
   const [flipped, setFlipped] = useState(false);
   const [disrupt, setDisrupt] = useState(false);
   const [connected, setConnected] = useState(false);
+  const [hallucinate, setHallucinate] = useState(false);
+
+  const [selectedCharacter, setSelectedCharacter] = useState('')
   
   useEffect(() => {
     const verticalResizer = document.getElementById('vertical-resizer');
@@ -104,7 +107,13 @@ const CodeInterface = () => {
     const newSocket = io(ENDPOINT);
     setSocket(newSocket);
 
-    return () => newSocket.close();
+    const character = localStorage.getItem('character')
+    console.log(character)
+    setSelectedCharacter(character)
+
+    return () => {
+      newSocket.close();
+    }
   }, []);
 
   const handleJoinRoom = () => {
@@ -121,6 +130,12 @@ const CodeInterface = () => {
 
   const handleDisrupt = () => {
     socket.emit('disrupt', { roomId })
+  }
+
+  const handleHallucinate = () => {
+    socket.emit('hallucinate', { roomId })
+
+    setHallucinate(true)
   }
 
   useEffect(() => {
@@ -146,6 +161,11 @@ const CodeInterface = () => {
       }, 10000)
     })
 
+    socket.on('hallucinating', () => {
+      console.log("Hallucinating")
+      setHallucinate(3)
+    })
+
     function toggleBlur() {
       setTimeout(() => {
         var overlay = document.querySelector('.blur-overlay');
@@ -163,6 +183,8 @@ const CodeInterface = () => {
 
     return () => {
       socket.off('flipped');
+      socket.off('joined')
+      socket.off('disrupted')
     };
   }, [socket]);
 
@@ -232,7 +254,11 @@ print(twoSum([2, 7, 11, 15], 9))
         }),
       });
       const data2 = await response2.json();
-  
+      
+      if (hallucinate > 0) {
+        setHallucinate(prev => prev - 1)
+        setOutput("u wrong")
+      } else
       if (response2.ok && checkTestCases(data2.output, ProblemBank[0][1])) {
         setOutput("u right");
       } else {
@@ -287,6 +313,12 @@ print(twoSum(${JSON.stringify(nums)}, ${JSON.stringify(target)}));
   
     return updatedCode;
   };
+
+  const powerUps = {
+    "Cauliflower": <button className="power-up" onClick={handleFlip}>Flip</button>, 
+    "Beet": <button className="power-up" onClick={handleDisrupt}>Disrupt</button>, 
+    "Mushroom": <button className="power-up" onClick={handleHallucinate}>Hallucinate</button>, 
+  }
   
 
   return (
@@ -347,6 +379,12 @@ print(twoSum(${JSON.stringify(nums)}, ${JSON.stringify(target)}));
             />
           </div> }
           <div className="button-container">
+
+
+          { selectedCharacter && powerUps[selectedCharacter] }
+
+
+
             <button className="run-button" onClick={handleRun} disabled={isLoading}>
               {isLoading ? "Running..." : "Run"}
             </button>
