@@ -121,7 +121,7 @@ const CodeInterface = () => {
       user = "Guest"
     }
     socket.emit('joinRoom', user);
-  }, [])
+  }, [socket])
 
   const handleFlip = () => {
     socket.emit('flip', { roomId })
