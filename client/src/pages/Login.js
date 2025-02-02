@@ -24,14 +24,13 @@ function Login() {
     if (response.statusText !== "Unauthorized") {
       const user = await response.json();
       localStorage.setItem("user", user.user);
-      navigate("/select");
+      navigate("/select#");
     } else {
       setStatus("LOGIN FAILED");
     }
   };
-
   const navRegister = () => {
-    navigate("/register");
+    navigate("/register#");
   };
 
   return (
@@ -84,14 +83,14 @@ function Register() {
 
     const status = await response.json();
     if (status.status) {
-      navigate("/login");
+      navigate("/login#");
     } else {
       setStatus("REGISTER FAILED");
     }
   };
 
   const navLogin = () => {
-    navigate("/login");
+    navigate("/login#");
   };
 
   return (

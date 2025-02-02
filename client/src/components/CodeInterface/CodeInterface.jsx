@@ -4,7 +4,7 @@ import './CodeInterface.css';
 import io from 'socket.io-client';
 import ProblemBank from './ProblemBank.jsx'
 
-const ENDPOINT = 'http://localhost:3001'; // Replace with your server endpoint
+const ENDPOINT = 'https://beetcode-11s8.onrender.com'; // Replace with your server endpoint
 
 const CodeInterface = () => {
   const [code, setCode] = useState("");
@@ -208,7 +208,7 @@ print(twoSum([2, 7, 11, 15], 9))
   
     try {
       // First request: execute original code
-      const response1 = await fetch("http://localhost:3001/execute", {
+      const response1 = await fetch("https://beetcode-11s8.onrender.com/execute", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -241,7 +241,7 @@ print(twoSum([2, 7, 11, 15], 9))
     setOutput("Running code...");
     try {
       const updatedCode = appendTestCasesToCode(code);
-      const response2 = await fetch("http://localhost:3001/execute", {
+      const response2 = await fetch("https://beetcode-11s8.onrender.com/execute", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

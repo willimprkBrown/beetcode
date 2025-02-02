@@ -49,7 +49,7 @@ function CharacterSelect() {
 
   const handleNavigate = () => {
     localStorage.setItem('character', selectedCharacter.name)
-    navigate('/match')
+    navigate('/match#')
   }
 
   return (

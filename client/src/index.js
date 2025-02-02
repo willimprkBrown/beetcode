@@ -5,27 +5,24 @@ import App from './pages/App';
 import { Login, Register } from './pages/Login';
 import { CharacterSelect } from './pages/CharacterSelect';
 import reportWebVitals from './reportWebVitals';
-import { HashRouter, BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Header from './components/Header/Header.jsx';
 import ClawMachine from './components/UI/ClawMachine.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-  <HashRouter basename="/">
-  <Header/>
-  <Routes>
-    <Route path="/" element={<ClawMachine/>} />
-    <Route path="/match" element={<App />} />
-    <Route path="/login" element={<Login/>} />
-    <Route path="/register" element={<Register/>} />
-    <Route path="/select" element={<CharacterSelect/>} />
-  </Routes>
-  </HashRouter>
+    <HashRouter>
+      <Header />
+      <Routes>
+        <Route index element={<ClawMachine />} />
+        <Route path="match" element={<App />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="select" element={<CharacterSelect />} />
+      </Routes>
+    </HashRouter>
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

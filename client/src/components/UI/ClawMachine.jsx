@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom"
 import backgroundImg from "../../assets/clawmachine.webp"; // Adjusted path
 import ballImg from "../../assets/ball.png"; // Import the ball image
 import ballImg2 from "../../assets/ball2.png"; // Import the ball image
@@ -22,7 +23,7 @@ function ClawMachine() {
   const [isHovered, setIsHovered] = useState(false); // State to track hover
   const [hasUserInteracted, setHasUserInteracted] = useState(false); 
   
-  const knobSound = useRef(null);
+  // const knobSound = useRef(null);
   
   useEffect(() => {
     const handleUserInteraction = () => {
@@ -53,7 +54,7 @@ function ClawMachine() {
   useEffect(() => {
     const rotateTimer = setTimeout(() => {
       setShouldRotateKnob(true); // Start rotating the knob after 1 second
-      if(hasUserInteracted) knobSound.current.play();
+      // if(hasUserInteracted) knobSound.current.play();
     }, 1000); // 1000ms = 1 second
 
     return () => clearTimeout(rotateTimer); // Cleanup timer on unmount
@@ -110,11 +111,15 @@ function ClawMachine() {
     return () => clearTimeout(expandTimer); // Cleanup timer on unmount
   }, [hasUserInteracted]);
 
-  
+  const nav = useNavigate();
+
+  const navLogin = () => {
+    nav("/login#");
+  }
 
   if (!isVisible) return null; // Don't render if not visible
 
-  return (
+  return (<>
     <motion.div
       style={{
         position: "absolute",
@@ -132,7 +137,7 @@ function ClawMachine() {
       animate={{ opacity: isVisible ? 1 : 0 }} // Fade out after 10 seconds
       transition={{ duration: 1 }} // Duration of fade-out animation
     >
-      <audio ref={knobSound} src="/assets/sounds/trim1.mp3" preload="auto" />
+      {/* <audio ref={knobSound} src="/assets/sounds/trim1.mp3" preload="auto" /> */}
 
       {/* Ball Image 1 */}
       <motion.img
@@ -212,8 +217,9 @@ function ClawMachine() {
       />
 
       {/* Ball copy */}
-<a href="/login">
+  <p onClick={navLogin}>TEMPORARY STUFF</p>
   <motion.img
+    onClick={navLogin}
     src={isHovered ? newImage : copy} // Toggle between the two images based on hover state
     alt="Ball 2 copy"
     style={{
@@ -233,7 +239,6 @@ function ClawMachine() {
     onMouseEnter={() => setIsHovered(true)} // Set hover state to true
     onMouseLeave={() => setIsHovered(false)} // Set hover state to false
   />
-</a>
 
 <style>
   {`
@@ -312,7 +317,7 @@ function ClawMachine() {
         }}
       />
     </motion.div>
-  );
+  </>);
 }
 
 export default ClawMachine;
