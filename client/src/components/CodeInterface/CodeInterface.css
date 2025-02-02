@@ -19,8 +19,6 @@
   margin-left: 15px;
   margin-right: 15px;
   overflow: hidden;
-
-
   /* Let content scroll instead of hiding the scrollbar. */
   /* overflow-y: auto; */
 }
@@ -245,4 +243,8 @@ overflow: visible !important;
   .flipped {
     transform: rotate(180deg);
     transform-origin: center;
+  }
+
+  .blur {
+    filter:blur(3px);
   }

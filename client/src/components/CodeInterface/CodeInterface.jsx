@@ -13,9 +13,10 @@ const CodeInterface = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [socket, setSocket] = useState(null);
-  const [roomId, setRoomId] = useState('')
-  const [flipped, setFlipped] = useState(false)
-  const [disrupt, setDisrupt] = useState(false)
+  const [roomId, setRoomId] = useState('');
+  const [flipped, setFlipped] = useState(false);
+  const [disrupt, setDisrupt] = useState(false);
+  const [connected, setConnected] = useState(false);
   
   useEffect(() => {
     const verticalResizer = document.getElementById('vertical-resizer');
@@ -146,6 +147,7 @@ const CodeInterface = () => {
     socket.on('joined', ({ roomid }) => {
       console.log("Joined " + roomid)
       setRoomId(roomid)
+      setConnected(true)
     })
 
     return () => {
