@@ -1,0 +1,106 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  margin: 0;
+  background-color: #232a3b;
+}
+
+.login-page .container {
+  background: #efdeeb;
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.7); /* Glowing white border */
+  text-align: center;
+  width: 100%; /* Stretch container to full width */
+  max-width: 600px; /* Increased max width for bigger container */
+  height: 800px; /* Increased height */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content at the top */
+  align-items: center;
+  padding: 30px; /* Increased padding for more space inside */
+}
+
+.login-image {
+  width: 110%;
+  height: auto;
+  border-radius: 10px;
+  top: -5%; /* Adjust image position vertically */
+  left: -5%; /* Adjust image position horizontally */
+  margin-bottom: 20px; /* Increased space between image and inputs/buttons */
+}
+
+.login-page input {
+  display: block;
+  margin-top: 15px;
+  margin: 2px auto; /* Increased margin for spacing */
+  padding: 15px; /* Larger padding for inputs */
+  width: 85%; /* Wider inputs */
+  border: 2px solid #000;
+  border-radius: 8px; /* Larger border radius */
+  font-size: 18px; /* Larger font size */
+  background-color: #fff0f0;
+}
+
+.gameboy-button {
+  background-color: hsl(0, 100%, 41%); /* Cute red color */
+  color: white;
+  border: none;
+  padding: 10px 18px; /* Smaller padding for button */
+  margin: 12px; /* Increased margin for spacing */
+  cursor: pointer;
+  border-radius: 50%; /* Circular button */
+  width: 70px; /* Fixed width for a smaller, lifelike button */
+  height: 70px; /* Fixed height for a smaller, lifelike button */
+  font-size: 14px; /* Smaller font size */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 3D shadow effect */
+  transition: background-color 0.3s ease, transform 0.1s ease; /* Button transition */
+}
+
+.gameboy-button:hover {
+  background-color: #b81d1d; /* Slightly darker red on hover */
+  transform: scale(0.93); /* Slight scale effect for hover */
+}
+
+.gameboy-button span {
+  position: absolute;
+  bottom: -25px; /* Position the text beneath the button */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: transform 0.2s ease-in-out;
+  color: #44422a;
+}
+
+/* Corrected span positioning for the first button (LOGIN) */
+.gameboy-button:first-child span {
+  transform: translateX(-200%) rotate(-15deg); /* Adjusted translation for correct position */
+}
+
+/* Corrected span positioning for the last button (REGISTER) */
+.gameboy-button:last-child span {
+  transform: translateX(0%) rotate(-15deg); /* Adjusted translation for correct position */
+}
+.gameboy-button:hover span {
+  transform: translateX(-50%) rotate(0deg);
+}
+.button-container {
+  display: flex;
+  position: relative;
+  /* justify-content: center; Center buttons horizontally */
+  gap: 20px; /* Space between buttons */
+  margin-left: 38px;
+  margin-top: -30px;
+  width: 100%; /* Make sure the buttons are contained within the width of the container */
+}
+
+.login-page p {
+  font-size: 18px; /* Increased font size for status text */
+}
