@@ -184,7 +184,7 @@ const CodeInterface = () => {
       socket.off('joined')
       socket.off('disrupted')
     };
-  }, [socket]);
+  }, [socket, handleJoinRoom]);
 
   const handleCodeChange = (value) => {
     if (disrupt && value.length % 10 === 0) {
