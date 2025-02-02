@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback  } from 'react';
+import React, { useState, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 import './CodeInterface.css';
 import io from 'socket.io-client';
@@ -115,13 +115,13 @@ const CodeInterface = () => {
     }
   }, []);
 
-  const handleJoinRoom = useCallback(() => {
+  const handleJoinRoom = () => {
     let user = localStorage.getItem('user')
     if (!user) {
       user = "Guest"
     }
     socket.emit('joinRoom', user);
-  }, [socket])
+  };
 
   const handleFlip = () => {
     socket.emit('flip', { roomId })
@@ -184,7 +184,7 @@ const CodeInterface = () => {
       socket.off('joined')
       socket.off('disrupted')
     };
-  }, [socket, handleJoinRoom]);
+  }, [socket]);
 
   const handleCodeChange = (value) => {
     if (disrupt && value.length % 10 === 0) {
@@ -409,12 +409,6 @@ print(twoSum(${JSON.stringify(nums)}, ${JSON.stringify(target)}));
       </div>
 
       <div id="vertical-resizer" className="resizer vertical-resizer"></div>
-
-        <div className="input-box">
-          <button onClick={handleJoinRoom}>Join Room</button> <br></br>
-          <button onClick={handleFlip}>Flip</button> <br></br>
-          <button onClick={handleDisrupt}>Disrupt</button>
-        </div>
     </>
   );
 };
