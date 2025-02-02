@@ -4,7 +4,8 @@
   max-width: 600px;
   margin: auto;
   position: relative;
-  padding-top: 60px; /* Increased padding-top to move the whole container down */
+  margin-top: 40px; /* Added space above the carousel container */
+  padding-top: 120px; /* Adjusted padding-top for internal space */
   background: linear-gradient(
     to bottom,
     #ff0044,
@@ -34,7 +35,7 @@
 }
 
 .character-card {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(154, 240, 255, 0.7);
   backdrop-filter: blur(10px);
   padding: 20px;
   border-radius: 15px;
@@ -42,6 +43,21 @@
   position: absolute;
   z-index: 2;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.6); /* Inner glow for card */
+  animation: hoverBounce 1.5s infinite; /* Slower animation with larger movement */
+  transform: scale(1.1); /* Slightly larger card */
+}
+
+/* Hover bounce effect */
+@keyframes hoverBounce {
+  0% {
+    transform: translateY(0) scale(1.1); /* Keep it slightly larger */
+  }
+  50% {
+    transform: translateY(-15px) scale(1.1); /* Move up slightly more */
+  }
+  100% {
+    transform: translateY(0) scale(1.1); /* Return to original position */
+  }
 }
 
 .character-image {
