@@ -13,9 +13,8 @@ const CodeInterface = () => {
   const [language, setLanguage] = useState("python");
   const [output, setOutput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [socket, setSocket] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [inputMessage, setInputMessage] = useState('');
   const [roomId, setRoomId] = useState('')
   const [flipped, setFlipped] = useState(false)
   const [disrupt, setDisrupt] = useState(false)
@@ -171,8 +170,10 @@ const CodeInterface = () => {
   const handleRun = async () => {
     setIsLoading(true);
     setOutput("Running code...");
-    const updatedCode = appendTestCasesToCode(code);
-    console.log(updatedCode);
+
+    const newCode = code + `
+print(twoSum([2, 7, 11, 15], 9))
+    `
   
     try {
       // First request: execute original code
@@ -182,7 +183,7 @@ const CodeInterface = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          code: code,
+          code: newCode,
           language: language,
         }),
       });
@@ -195,11 +196,20 @@ const CodeInterface = () => {
       }
   
       setOutput(data1.output || "No output");
+
+    } catch (error) {
+      setOutput(`Error: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  }
   
-      // Wait for 200ms before making the second request
-      await new Promise(resolve => setTimeout(resolve, 200));
-  
-      // Second request: execute updated code (after the delay)
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    setOutput("Running code...");
+    try {
+      const updatedCode = appendTestCasesToCode(code);
       const response2 = await fetch("http://localhost:3001/execute", {
         method: "POST",
         headers: {
@@ -210,7 +220,6 @@ const CodeInterface = () => {
           language: language,
         }),
       });
-  
       const data2 = await response2.json();
   
       if (response2.ok && checkTestCases(data2.output, ProblemBank[0][1])) {
@@ -222,7 +231,7 @@ const CodeInterface = () => {
     } catch (error) {
       setOutput(`Error: ${error.message}`);
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
   
@@ -332,6 +341,10 @@ print(twoSum(${JSON.stringify(nums)}, ${JSON.stringify(target)}));
           <div className="button-container">
             <button className="run-button" onClick={handleRun} disabled={isLoading}>
               {isLoading ? "Running..." : "Run"}
+            </button>
+
+            <button className="submit-button" onClick={handleSubmit} disabled={isSubmitting}>
+              {isSubmitting ? "Submitting..." : "Submit"}
             </button>
           </div>
 

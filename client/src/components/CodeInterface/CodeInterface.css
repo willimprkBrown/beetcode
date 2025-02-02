@@ -200,10 +200,11 @@ overflow: visible !important;
   }
   
   .run-button {
-    background-color: #4caf50;
+    background-color: #626262;
     color: white;
     border: none;
     padding: 8px 18px;
+    margin-left: 10px;
     font-size: 14px;
     border-radius: 5px;
     cursor: pointer;
@@ -211,13 +212,35 @@ overflow: visible !important;
   }
   
   .run-button:hover {
-    background-color: #45a049;
+    background-color: #3c3c3c;
   }
   
   .run-button:disabled {
     background-color: #777;
     cursor: not-allowed;
   }
+
+  .submit-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    margin-left: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #45a049;
+  }
+  
+  .submit-button:disabled {
+    background-color: #777;
+    cursor: not-allowed;
+  }
+
 
   .flipped {
     transform: rotate(180deg);
