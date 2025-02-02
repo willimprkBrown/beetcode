@@ -57,7 +57,7 @@ function ClawMachine() {
     }, 1000); // 1000ms = 1 second
 
     return () => clearTimeout(rotateTimer); // Cleanup timer on unmount
-  }, []);
+  }, [hasUserInteracted]);
 
   // Rotate the knob back 180 degrees after the first rotation finishes (1 second later)
   useEffect(() => {
@@ -66,7 +66,7 @@ function ClawMachine() {
     }, 2000); // 2000ms = 2 seconds
 
     return () => clearTimeout(rotateBackTimer); // Cleanup timer on unmount
-  }, []);
+  }, [hasUserInteracted]);
 
   // Start shaking the balls after the knob finishes rotating back (1 second after rotating back starts)
   useEffect(() => {
@@ -75,7 +75,7 @@ function ClawMachine() {
     }, 2500); // 3000ms = 3 seconds
 
     return () => clearTimeout(shakeTimer); // Cleanup timer on unmount
-  }, []);
+  }, [hasUserInteracted]);
 
   // Start shrinking ball2 after shaking finishes (3 seconds after shaking starts)
   useEffect(() => {
@@ -84,7 +84,7 @@ function ClawMachine() {
     }, 5000); // 6000ms = 6 seconds
 
     return () => clearTimeout(shrinkTimer); // Cleanup timer on unmount
-  }, []);
+  }, [hasUserInteracted]);
 
   useEffect(() => {
     const opacityTimer = setTimeout(() => {
@@ -92,7 +92,7 @@ function ClawMachine() {
     }, 6000); // 1000ms = 1 second
 
     return () => clearTimeout(opacityTimer); // Cleanup timer on unmount
-  }, []);
+  }, [hasUserInteracted]);
 
   useEffect(() => {
     const opacityTimer2 = setTimeout(() => {
@@ -100,7 +100,7 @@ function ClawMachine() {
     }, 7000); // 1000ms = 1 second
 
     return () => clearTimeout(opacityTimer2); // Cleanup timer on unmount
-  }, []);
+  }, [hasUserInteracted]);
 
   useEffect(() => {
     const expandTimer = setTimeout(() => {
@@ -108,7 +108,7 @@ function ClawMachine() {
     }, 7000); // 6000ms = 6 seconds
 
     return () => clearTimeout(expandTimer); // Cleanup timer on unmount
-  }, []);
+  }, [hasUserInteracted]);
 
   
 
