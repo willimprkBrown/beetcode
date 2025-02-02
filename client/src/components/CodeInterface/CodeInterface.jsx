@@ -113,7 +113,7 @@ const CodeInterface = () => {
     return () => {
       newSocket.close();
     }
-  }, []);
+  }, [handleJoinRoom]);
 
   const handleJoinRoom = () => {
     let user = localStorage.getItem('user')
