@@ -21,13 +21,13 @@ const server = http.createServer(app);
 
 const io = new SocketServer(server, {
     cors: {
-      origin: "https://beetcode-11s8.onrender.com",
+      origin: "https://beetcode.netlify.app",
       methods: ["GET", "POST"]
     }
   });
 
   app.use(cors({
-    origin: 'https://beetcode-11s8.onrender.com', // Replace with your frontend URL
+    origin: 'https://beetcode.netlify.app', // Replace with your frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true // Enable CORS credentials (cookies, authorization headers)
