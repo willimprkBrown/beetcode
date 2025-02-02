@@ -168,9 +168,9 @@ const CodeInterface = () => {
       setHallucinate(3)
     })
 
-    socket.on('winned', ({ user }) => {
+    socket.on('winned', (data) => {
       console.log('win')
-      setOutput(user + " Won!")
+      setOutput(data.user + " Won!")
       setTimeout(() => {
         nav('/select#')
       }, 5000)
