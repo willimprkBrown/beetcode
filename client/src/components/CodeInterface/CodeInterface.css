@@ -218,3 +218,9 @@ overflow: visible !important;
     background-color: #777;
     cursor: not-allowed;
   }
+
+  .flipped {
+    transform: rotate(180deg);
+    transform-origin: center; /* Ensures the flip is around the center */
+    transition: transform 0.3s ease-in-out; /* Optional: Adds smooth animation */
+  }

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './pages/App';
 import { Login, Register } from './pages/Login';
+import { CharacterSelect } from './pages/CharacterSelect';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -14,6 +15,7 @@ root.render(
     <Route path='/' element={<App />} />
     <Route path="login" element={<Login/>} />
     <Route path="register" element={<Register/>} />
+    <Route path="select" element={<CharacterSelect/>} />
   </Routes>
   </BrowserRouter>
   </React.StrictMode>

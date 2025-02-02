@@ -165,7 +165,7 @@ const CodeInterface = () => {
             <option value="javascript">JavaScript</option>
           </select>
         </div>
-        <div id="editor-panel" className="editor-panel">
+        <div id="editor-panel" className="editor-panel flipped">
           <Editor
             height="100%"
             width="100%"
