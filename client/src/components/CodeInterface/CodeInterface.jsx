@@ -1,9 +1,8 @@
-// CodeInterface.jsx
-
 import React, { useState, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 import './CodeInterface.css';
 import io from 'socket.io-client';
+import ProblemBank from './ProblemBank.jsx'
 
 const ENDPOINT = 'http://localhost:3001'; // Replace with your server endpoint
 
@@ -12,11 +11,93 @@ const CodeInterface = () => {
   const [language, setLanguage] = useState("python");
   const [output, setOutput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [socket, setSocket] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [inputMessage, setInputMessage] = useState('');
   const [roomId, setRoomId] = useState('')
   const [flipped, setFlipped] = useState(false)
+  const [disrupt, setDisrupt] = useState(false)
+  
+  useEffect(() => {
+    const verticalResizer = document.getElementById('vertical-resizer');
+    const leftPanel = document.getElementById('left-panel');
+    const rightPanel = document.getElementById('right-panel');
+    const horizontalResizer = document.getElementById('horizontal-resizer');
+    const editorPanel = document.getElementById('editor-panel');
+    const consolePanel = document.getElementById('console-panel');
+
+    let isVerticalResizing = false;
+    let startX = 0;
+    let leftWidth = 0;
+
+    const handleVerticalMouseDown = (e) => {
+      isVerticalResizing = true;
+      startX = e.clientX;
+      leftWidth = leftPanel.offsetWidth;
+      document.addEventListener('mousemove', handleVerticalMouseMove);
+      document.addEventListener('mouseup', handleVerticalMouseUp);
+    };
+
+    const handleVerticalMouseMove = (e) => {
+      if (!isVerticalResizing) return;
+      const dx = e.clientX - startX;
+      const newLeftWidth = leftWidth + dx;
+      const containerWidth = document.querySelector('.container').offsetWidth;
+      
+      if (newLeftWidth > 300 && newLeftWidth < containerWidth - 400) {
+        leftPanel.style.width = `${newLeftWidth}px`;
+        rightPanel.style.width = `calc(100% - ${newLeftWidth}px)`;
+      }
+    };
+
+    const handleVerticalMouseUp = () => {
+      isVerticalResizing = false;
+      document.removeEventListener('mousemove', handleVerticalMouseMove);
+      document.removeEventListener('mouseup', handleVerticalMouseUp);
+    };
+
+    // Horizontal resizing (editor-console)
+    let isHorizontalResizing = false;
+    let startY = 0;
+    let editorHeight = 0;
+
+    const handleHorizontalMouseDown = (e) => {
+      isHorizontalResizing = true;
+      startY = e.clientY;
+      editorHeight = editorPanel.offsetHeight;
+      document.addEventListener('mousemove', handleHorizontalMouseMove);
+      document.addEventListener('mouseup', handleHorizontalMouseUp);
+    };
+
+    const handleHorizontalMouseMove = (e) => {
+        if (!isHorizontalResizing) return;
+        const dy = e.clientY - startY;
+        const newEditorHeight = editorHeight + dy;
+        const containerHeight = rightPanel.offsetHeight;
+      
+        if (newEditorHeight > 200 && newEditorHeight < containerHeight - 150) {
+          editorPanel.style.height = `${newEditorHeight}px`;
+          consolePanel.style.flex = `1 1 auto`;
+        }
+      };
+
+    const handleHorizontalMouseUp = () => {
+      isHorizontalResizing = false;
+      document.removeEventListener('mousemove', handleHorizontalMouseMove);
+      document.removeEventListener('mouseup', handleHorizontalMouseUp);
+    };
+
+    verticalResizer.addEventListener('mousedown', handleVerticalMouseDown);
+    horizontalResizer.addEventListener('mousedown', handleHorizontalMouseDown);
+
+    return () => {
+      verticalResizer.removeEventListener('mousedown', handleVerticalMouseDown);
+      horizontalResizer.removeEventListener('mousedown', handleHorizontalMouseDown);
+      document.removeEventListener('mousemove', handleVerticalMouseMove);
+      document.removeEventListener('mouseup', handleVerticalMouseUp);
+      document.removeEventListener('mousemove', handleHorizontalMouseMove);
+      document.removeEventListener('mouseup', handleHorizontalMouseUp);
+    };
+  }, []);
 
   useEffect(() => {
     const newSocket = io(ENDPOINT);
@@ -37,6 +118,10 @@ const CodeInterface = () => {
     socket.emit('flip', { roomId })
   }
 
+  const handleDisrupt = () => {
+    socket.emit('disrupt', { roomId })
+  }
+
   useEffect(() => {
     if (!socket) return;
 
@@ -46,8 +131,16 @@ const CodeInterface = () => {
 
       setTimeout(() => {
         setFlipped(false)
-      }, 1000)
-      
+      }, 10000)
+    })
+
+    socket.on('disrupted', () => {
+      console.log('Disrupted')
+      setDisrupt(true)
+
+      setTimeout(() => {
+        setDisrupt(false)
+      }, 10000)
     })
 
     socket.on('joined', ({ roomid }) => {
@@ -61,8 +154,12 @@ const CodeInterface = () => {
   }, [socket]);
 
   const handleCodeChange = (value) => {
-    setCode(value);
-  };
+    if (disrupt && value.length % 10 == 0) {
+      value += '🤯'
+    }
+
+    setCode(value)
+  }
 
   const handleLanguageChange = (event) => {
     setLanguage(event.target.value);
@@ -72,54 +169,118 @@ const CodeInterface = () => {
     setIsLoading(true);
     setOutput("Running code...");
 
+    const newCode = code + `
+print(twoSum([2, 7, 11, 15], 9))
+    `
+  
     try {
-      const response = await fetch("http://localhost:3001/execute", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-              code: code,
-              language: language
-          }),
+      // First request: execute original code
+      const response1 = await fetch("http://localhost:3001/execute", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          code: newCode,
+          language: language,
+        }),
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setOutput(data.output || "No output");
-      } else {
-        setOutput(data.error || "Error: Unable to execute code");
+  
+      const data1 = await response1.json();
+  
+      if (!response1.ok) {
+        setOutput(data1.error || "Error: Unable to execute code");
+        return; // Exit early if the first request failed
       }
+  
+      setOutput(data1.output || "No output");
+
     } catch (error) {
       setOutput(`Error: ${error.message}`);
     } finally {
       setIsLoading(false);
     }
+  }
+  
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    setOutput("Running code...");
+    try {
+      const updatedCode = appendTestCasesToCode(code);
+      const response2 = await fetch("http://localhost:3001/execute", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          code: updatedCode,
+          language: language,
+        }),
+      });
+      const data2 = await response2.json();
+  
+      if (response2.ok && checkTestCases(data2.output, ProblemBank[0][1])) {
+        setOutput("u right");
+      } else {
+        setOutput(data2.error || "u wrong");
+      }
+  
+    } catch (error) {
+      setOutput(`Error: ${error.message}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+  
+
+
+  const checkTestCases = (actualOutput, testCases) => {    // Split both the actual and expected outputs into individual lines
+    const actualLines = actualOutput.trim().split('\n');
+    const expectedLines = Object.values(testCases).map(testCase => {
+      const jsonString = JSON.stringify(testCase.expectedOutput);
+      return jsonString.replace(/,/g, ', '); // Add space after commas
+    });
+
+    // Check if the number of lines match
+    if (actualLines.length !== expectedLines.length) {
+      return false;
+    }
+
+    // Compare each line one by one
+    for (let i = 0; i < actualLines.length; i++) {
+      if (actualLines[i] !== expectedLines[i]) {
+        return false;
+      }
+    }
+
+    // If all lines match
+    return true;
+  }
+
+  const appendTestCasesToCode = (code) => {
+    const testCases = ProblemBank[0][1];
+  
+    let updatedCode = code;
+  
+    for (let key in testCases) {
+      const testCase = testCases[key];
+      const { nums, target } = testCase;
+  
+      updatedCode += `
+print(twoSum(${JSON.stringify(nums)}, ${JSON.stringify(target)}));
+      `;
+    }
+  
+    return updatedCode;
+  };
+  
 
   return (
     <>
       <div className="container">
         <div id="left-panel" className="left-panel">
-          <div className="problem-description">
-            <h2>Two Sum</h2>
-            <p>Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.</p>
-            
-            <div className="example-flow">
-              <p>Example 1:</p>
-              <p>Input: nums = [2,7,11,15], target = 9</p>
-              <p>Output: [0,1]</p>
-              <p>Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].</p>
-            </div>
-
-            <ul className="constraints-list">
-              <li>2 ≤ nums.length ≤ 10⁴</li>
-              <li>-10⁹ ≤ nums[i] ≤ 10⁹</li>
-              <li>-10⁹ ≤ target ≤ 10⁹</li>
-              <li>Only one valid answer exists.</li>
-            </ul>
-          </div>
+         {ProblemBank[0][0]}
         </div>
 
         <div id="vertical-resizer" className="resizer vertical-resizer"></div>
@@ -136,15 +297,15 @@ const CodeInterface = () => {
               <option value="javascript">JavaScript</option>
             </select>
           </div>
-          { !flipped && <div id="editor-panel" className="editor-panel">
+          { !flipped ? <div id="editor-panel" className="editor-panel">
             <Editor
               height="100%"
               width="100%"
               language={language}
               value={code}
               onChange={handleCodeChange}
-              defaultLanguage="javascript"
-              defaultValue="// Your solution here"
+              defaultLanguage="python"
+              defaultValue={`${ProblemBank[0][2]}`}
               theme="vs-dark"
               options={{
                 minimap: { enabled: false },
@@ -153,16 +314,15 @@ const CodeInterface = () => {
                 padding: { top: 20 },
               }}
             />
-          </div> }
-          { flipped && <div id="editor-panel" className="editor-panel flipped">
+          </div> : <div id="editor-panel" className="editor-panel flipped">
             <Editor
               height="100%"
               width="100%"
               language={language}
               value={code}
               onChange={handleCodeChange}
-              defaultLanguage="javascript"
-              defaultValue="// Your solution here"
+              defaultLanguage="python"
+              defaultValue={`${ProblemBank[0][2]}`}
               theme="vs-dark"
               options={{
                 minimap: { enabled: false },
@@ -176,6 +336,10 @@ const CodeInterface = () => {
             <button className="run-button" onClick={handleRun} disabled={isLoading}>
               {isLoading ? "Running..." : "Run"}
             </button>
+
+            <button className="submit-button" onClick={handleSubmit} disabled={isSubmitting}>
+              {isSubmitting ? "Submitting..." : "Submit"}
+            </button>
           </div>
 
           <div id="horizontal-resizer" className="resizer horizontal-resizer"></div>
@@ -188,20 +352,13 @@ const CodeInterface = () => {
         </div>
       </div>
 
-      <div className="multiplayer-section">
-        <h2>Multiplayer Chat</h2>
-        <button onClick={handleJoinRoom}>Join Room</button>
-        <div className="chat-box">
-          {messages.map((msg, index) => (
-            <div key={index} className={`message ${msg.playerId === socket?.id ? 'self' : 'other'}`}>
-              <p>{`${msg.playerId}: ${msg.message}`}</p>
-            </div>
-          ))}
-        </div>
+      <div id="vertical-resizer" className="resizer vertical-resizer"></div>
+
         <div className="input-box">
-          <button onClick={handleFlip}>Flip</button>
+          <button onClick={handleJoinRoom}>Join Room</button> <br></br>
+          <button onClick={handleFlip}>Flip</button> <br></br>
+          <button onClick={handleDisrupt}>Disrupt</button>
         </div>
-      </div>
     </>
   );
 };
