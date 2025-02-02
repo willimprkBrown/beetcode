@@ -1,15 +1,16 @@
-/* Outer arcade-style frame */
 .carousel-container {
   text-align: center;
   max-width: 600px;
   margin: auto;
   position: relative;
-  margin-top: 40px; /* Added space above the carousel container */
-  padding-top: 120px; /* Adjusted padding-top for internal space */
-  background-color: #ffefcf;
-  border-radius: 30px;
+  margin-top: 40px;
+  padding-top: 120px;
   padding: 30px;
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); /* Neon glow */
+  /* background-image: url("/arcade.webp"); */
+  background-size: cover; /* Ensures the image covers the entire container */
+  background-position: center; /* Centers the background image */
+  border-radius: 30px;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
   border: 10px solid #fff;
 }
 
