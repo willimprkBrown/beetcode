@@ -11,12 +11,13 @@ const userSchema = new mongoose.Schema({
 const statsSchema = new mongoose.Schema({
     wins: { type: Number },
     losses: { type: Number },
-    language: { type: String }
+    language: { type: String }, 
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 })
 
 const problemSchema = new mongoose.Schema({
     statement: { type: String }, 
-    test_cases: { type: Object }
+    test_cases: { type: Object }, 
 })
 
 userSchema.plugin(passportLocalMongoose)
