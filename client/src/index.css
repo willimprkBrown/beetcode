@@ -1,18 +1,18 @@
 /*======================= Google Fonts =========================*/
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 
 /*======================= Variables CSS =========================*/
 :root {
   /*======= Colors ========*/
   /*Color mode HSL(hue, saturation, lightness)*/
   --first-color: hsl(353, 100%, 65%);
-  --body-color: hsl(244, 24%, 26%);
+  --body-color: #232a3b;
   --text-color: hsl(244, 16%, 43%);
   --container-color: #fff;
 
   /*======= Font and Typography ========*/
   /*.5rem = 8px | 1rem = 16px ...*/
-  --body-font: 'Rubik', sans-serif;
+  --body-font: "Rubik", sans-serif;
   --h1-font-size: 2.25rem;
   --h2-font-size: 1.5rem;
   --h3-font-size: 1.25rem;
@@ -78,7 +78,7 @@ h3 {
 }
 
 p {
-  color: #A0A0A0;
+  color: #a0a0a0;
 }
 
 ul {
@@ -127,7 +127,7 @@ img {
 }
 
 .section__title::before {
-  content: '';
+  content: "";
   height: 2.25rem;
   width: 2.25rem;
   position: absolute;
