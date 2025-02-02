@@ -12,14 +12,14 @@ import ClawMachine from './components/UI/ClawMachine.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-  <HashRouter>
+  <HashRouter basename="/">
   <Header/>
   <Routes>
-    <Route path="" element={<ClawMachine/>} />
-    <Route path="match" element={<App />} />
-    <Route path="login" element={<Login/>} />
-    <Route path="register" element={<Register/>} />
-    <Route path="select" element={<CharacterSelect/>} />
+    <Route path="/" element={<ClawMachine/>} />
+    <Route path="/match" element={<App />} />
+    <Route path="/login" element={<Login/>} />
+    <Route path="/register" element={<Register/>} />
+    <Route path="/select" element={<CharacterSelect/>} />
   </Routes>
   </HashRouter>
   </React.StrictMode>
