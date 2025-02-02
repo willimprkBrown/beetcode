@@ -48,12 +48,13 @@ function CharacterSelect() {
   };
 
   const handleNavigate = () => {
-    localStorage.setItem('character', selectedCharacter.name)
-    navigate('/match#')
-  }
+    localStorage.setItem("character", selectedCharacter.name);
+    navigate("/match#");
+  };
 
   return (
     <div className="carousel-container">
+      <h1 className="character-selection-title">Choose Your Veggie Fighter!</h1>
       <div className="carousel">
         <button className="nav-button left" onClick={handlePrevious}>
           &lt;
@@ -131,10 +132,11 @@ function CharacterSelect() {
         Select Character
       </button>
 
-      {selectedCharacter && 
-      <button className="play-button" onClick={handleNavigate}> 
-        Match
-      </button>}
+      {selectedCharacter && (
+        <button className="play-button" onClick={handleNavigate}>
+          Match
+        </button>
+      )}
 
       {selectedCharacter && (
         <div className="selected-character">
