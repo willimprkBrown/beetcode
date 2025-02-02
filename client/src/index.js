@@ -7,6 +7,7 @@ import { CharacterSelect } from './pages/CharacterSelect';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from './components/Header/Header.jsx';
+import ClawMachine from './components/UI/ClawMachine.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,6 +15,7 @@ root.render(
   <BrowserRouter>
   <Header/>
   <Routes>
+    <Route path="" element={<ClawMachine/>} />
     <Route path="match" element={<App />} />
     <Route path="login" element={<Login/>} />
     <Route path="register" element={<Register/>} />
