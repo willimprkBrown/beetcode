@@ -22,8 +22,6 @@ function ClawMachine() {
   const [isHovered, setIsHovered] = useState(false); // State to track hover
   const [hasUserInteracted, setHasUserInteracted] = useState(false); 
   
-  const knobSound = useRef(null);
-  
   useEffect(() => {
     const handleUserInteraction = () => {
       setHasUserInteracted(true);
@@ -53,7 +51,6 @@ function ClawMachine() {
   useEffect(() => {
     const rotateTimer = setTimeout(() => {
       setShouldRotateKnob(true); // Start rotating the knob after 1 second
-      if(hasUserInteracted) knobSound.current.play();
     }, 1000); // 1000ms = 1 second
 
     return () => clearTimeout(rotateTimer); // Cleanup timer on unmount
@@ -132,7 +129,7 @@ function ClawMachine() {
       animate={{ opacity: isVisible ? 1 : 0 }} // Fade out after 10 seconds
       transition={{ duration: 1 }} // Duration of fade-out animation
     >
-      <audio ref={knobSound} src="/assets/sounds/trim1.mp3" preload="auto" />
+      
 
       {/* Ball Image 1 */}
       <motion.img
