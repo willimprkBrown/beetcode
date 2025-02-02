@@ -21,7 +21,7 @@ function Login() {
         if (response.statusText !== "Unauthorized") {
             const user = await response.json()
             localStorage.setItem('user', user.user)
-            navigate("/")
+            navigate("/select")
         } else {
             setStatus("LOGIN FAILED")
         }
