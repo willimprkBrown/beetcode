@@ -17,6 +17,7 @@ const CodeInterface = () => {
   const [inputMessage, setInputMessage] = useState('');
   const [roomId, setRoomId] = useState('')
   const [flipped, setFlipped] = useState(false)
+  const [disrupt, setDisrupt] = useState(false)
 
   useEffect(() => {
     const newSocket = io(ENDPOINT);
@@ -37,6 +38,10 @@ const CodeInterface = () => {
     socket.emit('flip', { roomId })
   }
 
+  const handleDisrupt = () => {
+    socket.emit('disrupt', { roomId })
+  }
+
   useEffect(() => {
     if (!socket) return;
 
@@ -46,8 +51,16 @@ const CodeInterface = () => {
 
       setTimeout(() => {
         setFlipped(false)
-      }, 1000)
-      
+      }, 10000)
+    })
+
+    socket.on('disrupted', () => {
+      console.log('Disrupted')
+      setDisrupt(true)
+
+      setTimeout(() => {
+        setDisrupt(false)
+      }, 10000)
     })
 
     socket.on('joined', ({ roomid }) => {
@@ -61,8 +74,12 @@ const CodeInterface = () => {
   }, [socket]);
 
   const handleCodeChange = (value) => {
-    setCode(value);
-  };
+    if (disrupt && value.length % 10 == 0) {
+      value += '🤯'
+    }
+
+    setCode(value)
+  }
 
   const handleLanguageChange = (event) => {
     setLanguage(event.target.value);
@@ -200,6 +217,7 @@ const CodeInterface = () => {
         </div>
         <div className="input-box">
           <button onClick={handleFlip}>Flip</button>
+          <button onClick={handleDisrupt}>Disrupt</button>
         </div>
       </div>
     </>

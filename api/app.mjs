@@ -96,6 +96,10 @@ io.on('connection', (socket) => {
         socket.to(roomId).emit('flipped');
     });
 
+    socket.on('disrupt', ({ roomId }) => {
+        socket.to(roomId).emit('disrupted')
+    })
+
     socket.on('disconnect', () => {
         console.log(`Socket disconnected: ${socket.id}`);
     });
