@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/beetcode/static/css/main.932aeb5e.css",
+    "main.js": "/beetcode/static/js/main.2b2150a0.js",
+    "static/js/488.5dc00adb.chunk.js": "/beetcode/static/js/488.5dc00adb.chunk.js",
+    "static/media/ball.png": "/beetcode/static/media/ball.13b39b2dbab194aeab0b.png",
+    "static/media/ball3.png": "/beetcode/static/media/ball3.d715255a54bc98b8be0b.png",
+    "static/media/ball2copy.png": "/beetcode/static/media/ball2copy.5c6722a4919d2fa0fb2f.png",
+    "static/media/ball2.png": "/beetcode/static/media/ball2.faad9905d2012b0b50ea.png",
+    "static/media/newImage.png": "/beetcode/static/media/newImage.5a12dccf689282de62ef.png",
+    "static/media/knob.png": "/beetcode/static/media/knob.e192baf37d5962ae7b2b.png",
+    "static/media/clawmachine.webp": "/beetcode/static/media/clawmachine.6e12d63261575e305184.webp",
+    "static/media/Born2bSportyFS.otf": "/beetcode/static/media/Born2bSportyFS.c0a54a253b3c8f9a7849.otf",
+    "index.html": "/beetcode/index.html",
+    "main.932aeb5e.css.map": "/beetcode/static/css/main.932aeb5e.css.map",
+    "main.2b2150a0.js.map": "/beetcode/static/js/main.2b2150a0.js.map",
+    "488.5dc00adb.chunk.js.map": "/beetcode/static/js/488.5dc00adb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.932aeb5e.css",
+    "static/js/main.2b2150a0.js"
+  ]
+}
