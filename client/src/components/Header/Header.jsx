@@ -1,5 +1,6 @@
 import "./Header.css";
 import React from "react";
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -10,7 +11,9 @@ const Header = () => {
           src={`${process.env.PUBLIC_URL}/beet.png`}
           alt="Beet Icon"
         />
-        <h1 className="header-title">beetcode</h1>
+        <Link to='/select'>
+          <h1 style={{ userSelect: 'text' }} className="header-title">beetcode</h1>
+        </Link>
       </div>
     </div>
   );

@@ -6,11 +6,13 @@ import { Login, Register } from './pages/Login';
 import { CharacterSelect } from './pages/CharacterSelect';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from './components/Header/Header.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
   <BrowserRouter>
+  <Header/>
   <Routes>
     <Route path='/' element={<App />} />
     <Route path="login" element={<Login/>} />
