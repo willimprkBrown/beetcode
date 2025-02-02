@@ -248,7 +248,7 @@ overflow: visible !important;
   }
   
   .submit-button:hover {
-    background-color: #45a049;
+    background-color: #1b8721;
   }
   
   .submit-button:disabled {
@@ -264,4 +264,21 @@ overflow: visible !important;
 
   .blur {
     filter:blur(3px);
+  }
+
+  .power-up {
+    padding: 8px;
+    margin-left: 10px;
+    font-size: 14px;
+    width: 30px;
+    height: 30px;
+    background-color: #ffae45;
+    border-radius: 5px;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .power-up:hover {
+    cursor: pointer;
+    background-color: #ce7500;
   }

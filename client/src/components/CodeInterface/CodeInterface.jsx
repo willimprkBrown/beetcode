@@ -315,9 +315,15 @@ print(twoSum(${JSON.stringify(nums)}, ${JSON.stringify(target)}));
   };
 
   const powerUps = {
-    "Cauliflower": <button className="power-up" onClick={handleFlip}>Flip</button>, 
-    "Beet": <button className="power-up" onClick={handleDisrupt}>Disrupt</button>, 
-    "Mushroom": <button className="power-up" onClick={handleHallucinate}>Hallucinate</button>, 
+    "Cauliflower":<span>
+                    <i class="fa-solid fa-bolt power-up" onClick={handleFlip}></i>
+                  </span>,
+    "Beet":<span>
+            <i class="fa-solid fa-bolt power-up" onClick={handleDisrupt}></i>
+          </span>,
+    "Mushroom": <span>
+                  <i class="fa-solid fa-bolt power-up" onClick={handleHallucinate}></i>
+                </span>, 
   }
   
 
