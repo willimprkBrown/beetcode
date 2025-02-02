@@ -1,0 +1,27 @@
+/* Define the custom font */
+@font-face {
+    font-family: 'Born2bSportyFS';
+    src: url('../../assets/Born2bSportyFS.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  /* Apply the custom font to a class */
+  .custom-font {
+    font-family: 'Born2bSportyFS', sans-serif; /* Fallback to sans-serif if the custom font fails to load */
+  }
+  
+  /* Additional styles for your motion.div */
+  .text-box {
+    position: absolute;
+    top: 68%;
+    left: 49%;
+    transform: translateX(-50%);
+    color: #153A1c;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 10px;
+    z-index: 10000;
+  }
