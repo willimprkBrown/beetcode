@@ -153,7 +153,7 @@ const CodeInterface = () => {
               <option value="javascript">JavaScript</option>
             </select>
           </div>
-          { !flipped && <div id="editor-panel" className="editor-panel">
+          { !flipped ? <div id="editor-panel" className="editor-panel">
             <Editor
               height="100%"
               width="100%"
@@ -170,8 +170,7 @@ const CodeInterface = () => {
                 padding: { top: 20 },
               }}
             />
-          </div> }
-          { flipped && <div id="editor-panel" className="editor-panel flipped">
+          </div> : <div id="editor-panel" className="editor-panel flipped">
             <Editor
               height="100%"
               width="100%"
@@ -207,46 +206,11 @@ const CodeInterface = () => {
 
       <div id="vertical-resizer" className="resizer vertical-resizer"></div>
 
-      <div id="right-panel" className="right-panel">
-        <div className="language-selector">
-          <select
-            id="language-selector"
-            value={language}
-            onChange={handleLanguageChange}
-          >
-            <option value="python">Python</option>
-            <option value="cpp">C++</option>
-            <option value="javascript">JavaScript</option>
-          </select>
-        </div>
-        <div id="editor-panel" className="editor-panel flipped">
-          <Editor
-            height="100%"
-            width="100%"
-            language={language}
-            value={code}
-            onChange={handleCodeChange}
-            defaultLanguage="javascript"
-            defaultValue="// Your solution here"
-            theme="vs-dark"
-            options={{
-              minimap: { enabled: false },
-              scrollBeyondLastLine: false,
-              automaticLayout: true,
-              padding: { top: 20 },
-            }}
-          />
-        </div>
-        <div className="button-container">
-          <button className="run-button" onClick={handleRun} disabled={isLoading}>
-            {isLoading ? "Running..." : "Run"}
-          </button>
-        </div>
         <div className="input-box">
-          <button onClick={handleFlip}>Flip</button>
+          <button onClick={handleJoinRoom}>Join Room</button> <br></br>
+          <button onClick={handleFlip}>Flip</button> <br></br>
           <button onClick={handleDisrupt}>Disrupt</button>
         </div>
-      </div>
     </>
   );
 };
