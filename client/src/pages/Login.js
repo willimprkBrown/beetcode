@@ -103,7 +103,7 @@ function Register() {
           <input ref={userRef} type="text" placeholder="username" />
           <br />
           <input ref={pwRef} type="text" placeholder="password" />
-          <div className="button2-container">
+          {/* <div className="button2-container">
             <button onClick={registry} type="submit" className="gameboy-button">
               <span>REGISTER</span>
             </button>
@@ -111,6 +111,15 @@ function Register() {
               <span>LOGIN</span>
             </button>
           </div>
+           */}
+           <div className="button2-container register-buttons">
+  <button onClick={registry} type="submit" className="gameboy-button">
+    <span>REGISTER</span>
+  </button>
+  <button onClick={navLogin} className="gameboy-button">
+    <span>LOGIN</span>
+  </button>
+</div>
           <p>{status}</p>
         </div>
       </div>
