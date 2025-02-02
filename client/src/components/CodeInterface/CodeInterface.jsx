@@ -273,6 +273,9 @@ print(twoSum([2, 7, 11, 15], 9))
         setOutput("u right");
 
         socket.emit('win', { user, roomId})
+        setTimeout(() => {
+          nav('/select#')
+        }, 5000)
 
       } else {
         setOutput(data2.error || "u wrong");
