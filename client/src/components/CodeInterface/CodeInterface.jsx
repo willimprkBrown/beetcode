@@ -185,7 +185,7 @@ const CodeInterface = () => {
         </div>
         <div className="button-container">
           <button className="run-button" onClick={handleRun} disabled={isLoading}>
-            {isLoading ? "Running..." : "Run Code"}
+            {isLoading ? "Running..." : "Run"}
           </button>
         </div>
 

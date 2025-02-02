@@ -117,11 +117,11 @@
     min-height: 150px;
     position: relative;
     overflow: visible !important;
-  }
+}
 
-  .monaco-editor {
-    overflow: visible !important;
-  }
+.monaco-editor {
+overflow: visible !important;
+}
 
 .console-panel {
   min-height: 50px;
@@ -192,3 +192,29 @@
 .console-output pre {
   margin: 0;
 }
+
+.button-container {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+  
+  .run-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .run-button:hover {
+    background-color: #45a049;
+  }
+  
+  .run-button:disabled {
+    background-color: #777;
+    cursor: not-allowed;
+  }
