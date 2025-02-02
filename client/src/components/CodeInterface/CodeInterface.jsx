@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback  } from 'react';
 import Editor from '@monaco-editor/react';
 import './CodeInterface.css';
 import io from 'socket.io-client';
@@ -115,13 +115,13 @@ const CodeInterface = () => {
     }
   }, []);
 
-  const handleJoinRoom = () => {
+  const handleJoinRoom = useCallback(() => {
     let user = localStorage.getItem('user')
     if (!user) {
       user = "Guest"
     }
     socket.emit('joinRoom', user);
-  };
+  }, [])
 
   const handleFlip = () => {
     socket.emit('flip', { roomId })
