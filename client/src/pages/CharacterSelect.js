@@ -131,9 +131,10 @@ function CharacterSelect() {
         Select Character
       </button>
 
+      {selectedCharacter && 
       <button className="play-button" onClick={handleNavigate}> 
-        Match!
-      </button>
+        Match
+      </button>}
 
       {selectedCharacter && (
         <div className="selected-character">
