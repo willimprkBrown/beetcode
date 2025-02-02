@@ -54,7 +54,6 @@ function CharacterSelect() {
 
   return (
     <div className="carousel-container">
-      <h2></h2>
       <div className="carousel">
         <button className="nav-button left" onClick={handlePrevious}>
           &lt;

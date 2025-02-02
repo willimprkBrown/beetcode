@@ -149,7 +149,7 @@ const CodeInterface = () => {
       setTimeout(() => {
         setFlipped(false)
       }, 10000)
-    }, [socket])
+    }, [socket, handleJoinRoom])
 
     socket.on('disrupted', () => {
       console.log('Disrupted')

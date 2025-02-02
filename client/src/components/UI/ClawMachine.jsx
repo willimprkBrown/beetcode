@@ -47,7 +47,7 @@ function ClawMachine() {
     }, 100000000000);
 
     return () => clearTimeout(hideTimer); // Cleanup timer on unmount
-  }, []);
+  }, [hasUserInteracted]);
 
   // Rotate the knob 180 degrees after 1 second
   useEffect(() => {
