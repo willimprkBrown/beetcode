@@ -10,7 +10,7 @@ function Login() {
   const passwordRef = useRef("");
 
   const authenticate = async () => {
-    const response = await fetch("http://localhost:3001/login", {
+    const response = await fetch("https://beetcode-11s8.onrender.com/login", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ function Login() {
           <br />
           <input ref={passwordRef} type="text" placeholder="password" />
           <br />
-          <div className="button-container">
+          <div className="button2-container">
             <button
               onClick={authenticate}
               type="submit"
@@ -70,7 +70,7 @@ function Register() {
   const pwRef = useRef("");
 
   const registry = async () => {
-    const response = await fetch("http://localhost:3001/register", {
+    const response = await fetch("https://beetcode-11s8.onrender.com/register", {
       method: "post",
       credentials: "include",
       headers: {
@@ -104,8 +104,7 @@ function Register() {
           <input ref={userRef} type="text" placeholder="username" />
           <br />
           <input ref={pwRef} type="text" placeholder="password" />
-          <br />
-          <div className="button-container">
+          <div className="button2-container">
             <button onClick={registry} type="submit" className="gameboy-button">
               <span>REGISTER</span>
             </button>

@@ -12,14 +12,14 @@
   border-radius: 15px; /* Rounded corners */
   box-shadow: 0 0 15px 5px #768fff; /* Glowing white border */
   text-align: center;
-  width: 100%; /* Stretch container to full width */
-  max-width: 600px; /* Increased max width for bigger container */
-  height: 800px; /* Increased height */
+  width: 100%; 
+  max-width: 600px; 
+  height: 800px; 
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align content at the top */
+  justify-content: flex-start; 
   align-items: center;
-  padding: 30px; /* Increased padding for more space inside */
+  padding: 30px; 
 }
 
 .login-image {
@@ -91,14 +91,14 @@
 .gameboy-button:hover span {
   transform: translateX(-50%) rotate(0deg);
 }
-.button-container {
+
+.button2-container {
   display: flex;
   position: relative;
-  /* justify-content: center; Center buttons horizontally */
-  gap: 20px; /* Space between buttons */
-  margin-left: 38px;
+  gap: 20px;
+  margin-left: 22px;
   margin-top: -30px;
-  width: 100%; /* Make sure the buttons are contained within the width of the container */
+  width: 100%; 
 }
 
 .login-page p {
